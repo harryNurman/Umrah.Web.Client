@@ -23,12 +23,12 @@ body {
 }
 .title {
   float: left;
-  width: 85%;
+  width: Auto;
   text-align: right;
 }
 
 .logo {
-  width: 10%;
+  width: Auto;
   float: right;
   padding: 10px 10px 2px 10px;
 }
