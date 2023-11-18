@@ -1,10 +1,12 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { environment } from 'src/environments/environment';
-
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfigurationService } from 'src/service/app-configuration.service';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from 'src/home/home.component';
+
+const appRoutes: Routes = [{ path: '', component: HomeComponent }];
 
 const appConfig = (config: AppConfigurationService) => {
   return () => {
@@ -13,8 +15,8 @@ const appConfig = (config: AppConfigurationService) => {
 };
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule],
+  declarations: [AppComponent, HomeComponent],
+  imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
   providers: [
     AppConfigurationService,
     {

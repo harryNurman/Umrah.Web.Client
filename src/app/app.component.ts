@@ -17,10 +17,10 @@ export class AppComponent implements OnInit {
 
   constructor(appConfigService: AppConfigurationService) {
     this.configService = appConfigService;
-    this.title = '';
   }
   ngOnInit() {
     this.appConfig = this.configService.getConfig();
     this.title = this.appConfig?.title;
+    console.log(this.appConfig);
   }
 }

@@ -1,4 +1,4 @@
 {
-  "baseUrl": "localhost:8800/api",
-  "title": "Perjalanan Umrah"
+  "baseUrl": "localhost:8900/api",
+  "title": "Sahabat Umrah"
 }
