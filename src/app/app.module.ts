@@ -3,10 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfigurationService } from 'src/service/app-configuration.service';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from 'src/home/home.component';
-
-const appRoutes: Routes = [{ path: '', component: HomeComponent }];
+import { HomeComponent } from 'src/app/home/home.component';
+import { ErrorComponent } from './error/error.component';
+import { ProvincesComponent } from './master/provinces/provinces.component';
+import { ProvinceComponent } from './master/provinces/province/province.component';
+import { AppRoutingModule } from './app-routing.module';
 
 const appConfig = (config: AppConfigurationService) => {
   return () => {
@@ -14,9 +15,16 @@ const appConfig = (config: AppConfigurationService) => {
   };
 };
 
+
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
-  imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    ErrorComponent,
+    ProvincesComponent,
+    ProvinceComponent,
+  ],
+  imports: [BrowserModule, HttpClientModule,AppRoutingModule],
   providers: [
     AppConfigurationService,
     {

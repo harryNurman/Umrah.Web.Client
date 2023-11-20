@@ -3,18 +3,21 @@
     <div class="navigation-menu">
       <ul>
         <li
-          routerLinkActive="active"
+          [routerLinkActive]="'active'"
           [routerLinkActiveOptions]="{ exact: true }"
         >
           <a routerLink="">Home</a>
         </li>
-        <!-- localhost:4200/Home -->
-        <li routerLinkActive="active"><a routerLink="/About">About</a></li>
-        <!-- localhost:4200/About -->
-        <li routerLinkActive="active"><a routerLink="/Contact">Contact</a></li>
-        <!-- localhost:4200/Contact -->
-        <li routerLinkActive="active"><a routerLink="/Courses">Courses</a></li>
-        <!-- localhost:4200/Courses -->
+        <li [routerLinkActive]="'active'">
+          <a routerLink="/Province">Province</a>
+        </li>
+        <li [routerLinkActive]="'active'"><a routerLink="/About">About</a></li>
+        <li [routerLinkActive]="'active'">
+          <a routerLink="Contact">Contact</a>
+        </li>
+        <li [routerLinkActive]="'active'">
+          <a routerLink="Courses">Courses</a>
+        </li>
       </ul>
     </div>
     <div class="title">
