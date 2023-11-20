@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { ProvinceComponent } from './master/provinces/province/province.component';
 import { ErrorComponent } from './error/error.component';
+import { HomeComponent } from './public/components/home/home.component';
+import { PublicComponent } from './public/public.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, children:[
+    {path: '',component:HomeComponent}
+  ] },
   { path: 'Home', component: HomeComponent },
-  { path: 'Province', component: ProvinceComponent },
   { path: '**', component: ErrorComponent },
 ];
 
@@ -15,4 +16,4 @@ const appRoutes: Routes = [
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
