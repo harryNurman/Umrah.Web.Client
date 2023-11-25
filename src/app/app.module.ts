@@ -5,9 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppConfigurationService } from 'src/service/app-configuration.service';
 import { HomeComponent } from 'src/app/home/home.component';
 import { ErrorComponent } from './error/error.component';
-import { ProvincesComponent } from './master/provinces/provinces.component';
-import { ProvinceComponent } from './master/provinces/province/province.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MasterModule } from './master/master.module';
 
 const appConfig = (config: AppConfigurationService) => {
   return () => {
@@ -15,16 +14,9 @@ const appConfig = (config: AppConfigurationService) => {
   };
 };
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ErrorComponent,
-    ProvincesComponent,
-    ProvinceComponent,
-  ],
-  imports: [BrowserModule, HttpClientModule,AppRoutingModule],
+  declarations: [AppComponent, HomeComponent, ErrorComponent],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, MasterModule],
   providers: [
     AppConfigurationService,
     {
