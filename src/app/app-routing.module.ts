@@ -6,7 +6,11 @@ import { MasterComponent } from './master/master.component';
 import { ProvinsiComponent } from './master/components/provinsi/provinsi.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  {
+    path: '',
+    component: HomeComponent,
+    children: [{ path: '', component: HomeComponent }],
+  },
   { path: 'Home', component: HomeComponent },
   {
     path: 'master',
