@@ -6,6 +6,7 @@ import { AppConfigurationService } from 'src/service/app-configuration.service';
 import { ErrorComponent } from './error/error.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MasterModule } from './master/master.module';
+import { PublicModule } from './public/public.module';
 
 const appConfig = (config: AppConfigurationService) => {
   return () => {
@@ -14,8 +15,14 @@ const appConfig = (config: AppConfigurationService) => {
 };
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ErrorComponent],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, MasterModule],
+  declarations: [AppComponent, ErrorComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    MasterModule,
+    PublicModule,
+  ],
   providers: [
     AppConfigurationService,
     {

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { ErrorComponent } from './error/error.component';
 import { MasterComponent } from './master/master.component';
 import { ProvinsiComponent } from './master/components/provinsi/provinsi.component';
+import { HomeComponent } from './public/components/home/home.component';
 
 const appRoutes: Routes = [
   {
@@ -11,13 +11,6 @@ const appRoutes: Routes = [
     component: HomeComponent,
     children: [{ path: '', component: HomeComponent }],
   },
-  { path: 'Home', component: HomeComponent },
-  {
-    path: 'master',
-    component: MasterComponent,
-    children: [{ path: 'provinsi', component: ProvinsiComponent }],
-  },
-  { path: '**', component: ErrorComponent },
 ];
 
 @NgModule({
