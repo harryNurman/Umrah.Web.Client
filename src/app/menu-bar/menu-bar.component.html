@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <button mat-button>Home</button>
+  <button mat-button [matMenuTriggerFor]="masters">Master Data</button>
+  <mat-menu #masters="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="residensces">Residensial</button>
+    <button mat-menu-item>Airline</button>
+  </mat-menu>
+  <mat-menu #residensces="matMenu">
+    <button mat-menu-item>Provinsi</button>
+    <button mat-menu-item>Kabupaten/Kota</button>
+    <button mat-menu-item>Kecamatan</button>
+    <button mat-menu-item>Kelurahan</button>
+  </mat-menu>
+  <span class="example-spacer"></span>
+  <span>Sahabat Umrah</span>
+</mat-toolbar>

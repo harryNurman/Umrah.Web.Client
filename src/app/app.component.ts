@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppConfiguration } from 'src/config/app-configuration';
 import { AppConfigurationService } from 'src/service/app-configuration.service';
-
 // import { environment } from 'src/environments/environment';
 
 @Component({
