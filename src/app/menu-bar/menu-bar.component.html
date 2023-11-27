@@ -1,4 +1,5 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <span>Sahabat Umrah</span>
   <button mat-button>Home</button>
   <button mat-button [matMenuTriggerFor]="masters">Master Data</button>
   <mat-menu #masters="matMenu">
@@ -6,11 +7,11 @@
     <button mat-menu-item>Airline</button>
   </mat-menu>
   <mat-menu #residensces="matMenu">
-    <button mat-menu-item>Provinsi</button>
-    <button mat-menu-item>Kabupaten/Kota</button>
-    <button mat-menu-item>Kecamatan</button>
-    <button mat-menu-item>Kelurahan</button>
+    <button mat-menu-item routerLink="/master/provinsi">Provinsi</button>
+    <button mat-menu-item routerLink="/master/kabupaten">Kabupaten/Kota</button>
+    <button mat-menu-item routerLink="/master/kecamatan">Kecamatan</button>
+    <button mat-menu-item routerLink="/master/kelurahan">Kelurahan</button>
   </mat-menu>
   <span class="example-spacer"></span>
-  <span>Sahabat Umrah</span>
+  <button mat-button>Sign out</button>
 </mat-toolbar>
