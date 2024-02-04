@@ -9,10 +9,6 @@ import { MasterModule } from './master/master.module';
 import { PublicModule } from './public/public.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 
 const appConfig = (config: AppConfigurationService) => {
@@ -31,10 +27,6 @@ const appConfig = (config: AppConfigurationService) => {
     PublicModule,
     BrowserAnimationsModule,
     SharedModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatIconModule,
   ],
   exports: [],
   providers: [

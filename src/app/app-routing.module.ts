@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Router, RouterModule, Routes } from '@angular/router';
-import { ErrorComponent } from './error/error.component';
-import { MasterComponent } from './master/master.component';
-import { ProvinsiComponent } from './master/components/provinsi/provinsi.component';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './public/components/home/home.component';
 
 const appRoutes: Routes = [
