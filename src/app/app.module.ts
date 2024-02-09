@@ -10,6 +10,7 @@ import { PublicModule } from './public/public.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
+import { MaterialModule } from './shared/material.module';
 
 const appConfig = (config: AppConfigurationService) => {
   return () => {
@@ -27,6 +28,7 @@ const appConfig = (config: AppConfigurationService) => {
     PublicModule,
     BrowserAnimationsModule,
     SharedModule,
+    MaterialModule,
   ],
   exports: [],
   providers: [

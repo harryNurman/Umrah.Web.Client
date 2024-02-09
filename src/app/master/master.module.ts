@@ -9,6 +9,8 @@ import { MasterRoutingModule } from './master-routing.module';
 import { FormsModule } from '@angular/forms';
 import { AddProvinsiComponent } from './components/provinsi/add-provinsi/add-provinsi.component';
 import { SharedModule } from '../shared/shared.module';
+import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
+import { MaterialModule } from '../shared/material.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,15 @@ import { SharedModule } from '../shared/shared.module';
     KecamatanComponent,
     KelurahanComponent,
     AddProvinsiComponent,
+    AllProvinsiComponent,
   ],
-  imports: [RouterModule, MasterRoutingModule, FormsModule, SharedModule],
+  imports: [
+    RouterModule,
+    MasterRoutingModule,
+    FormsModule,
+    SharedModule,
+    FormsModule,
+    MaterialModule,
+  ],
 })
 export class MasterModule {}
