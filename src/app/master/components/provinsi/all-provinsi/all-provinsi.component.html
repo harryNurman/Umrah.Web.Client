@@ -2,3 +2,18 @@
 <button mat-raised-button color="primary" [routerLink]="'new'">
   Tambah Provinsi
 </button>
+<br /><br />
+<mat-grid-list cols="6" rowHeight="20px">
+  <mat-grid-tile [style.background]="'lightgreen'">Id</mat-grid-tile>
+  <mat-grid-tile [style.background]="'lightgreen'">Code</mat-grid-tile>
+  <mat-grid-tile [style.background]="'lightgreen'">Name</mat-grid-tile>
+  <mat-grid-tile [style.background]="'lightgreen'">TimeZoneInfo</mat-grid-tile>
+  <mat-grid-tile></mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list *ngFor="let province of provinces" cols="5" rowHeight="20px">
+  <mat-grid-tile>{{ province.id }}</mat-grid-tile>
+  <mat-grid-tile>{{ province.code }}</mat-grid-tile>
+  <mat-grid-tile>{{ province.name }}</mat-grid-tile>
+  <mat-grid-tile>{{ province.timeZoneInfo }}</mat-grid-tile>
+  <mat-grid-tile></mat-grid-tile>
+</mat-grid-list>

@@ -2,7 +2,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AppConfigurationService } from 'src/service/app-configuration.service';
+import { AppConfigurationService } from 'src/app/service/app-configuration.service';
 import { ErrorComponent } from './error/error.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MasterModule } from './master/master.module';

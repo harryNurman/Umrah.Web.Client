@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { ProvinsiService } from 'src/app/service/provinsi.service';
 
 @Component({
   selector: 'app-add-provinsi',
@@ -17,7 +18,7 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
   /**
    *
    */
-  constructor() {}
+  constructor(private provinsiService: ProvinsiService) {}
   ngAfterViewChecked(): void {
     //console.log(this.myForm);
   }

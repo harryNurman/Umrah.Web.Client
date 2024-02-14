@@ -11,6 +11,7 @@ import { AddProvinsiComponent } from './components/provinsi/add-provinsi/add-pro
 import { SharedModule } from '../shared/shared.module';
 import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
 import { MaterialModule } from '../shared/material.module';
+import { ProvinsiService } from '../service/provinsi.service';
 
 @NgModule({
   declarations: [
@@ -30,5 +31,6 @@ import { MaterialModule } from '../shared/material.module';
     FormsModule,
     MaterialModule,
   ],
+  providers: [ProvinsiService],
 })
 export class MasterModule {}

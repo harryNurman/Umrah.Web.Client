@@ -1,4 +1,4 @@
 {
-  "baseUrl": "localhost:8900/api",
+  "baseUrl": "https://localhost:7153/",
   "title": "Sahabat Umrah"
 }
