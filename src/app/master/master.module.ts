@@ -31,6 +31,7 @@ import { ProvinsiService } from '../service/provinsi.service';
     FormsModule,
     MaterialModule,
   ],
+  exports: [],
   providers: [ProvinsiService],
 })
 export class MasterModule {}

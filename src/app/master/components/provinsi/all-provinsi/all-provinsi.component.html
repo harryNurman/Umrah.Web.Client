@@ -3,17 +3,64 @@
   Tambah Provinsi
 </button>
 <br /><br />
-<mat-grid-list cols="6" rowHeight="20px">
-  <mat-grid-tile [style.background]="'lightgreen'">Id</mat-grid-tile>
-  <mat-grid-tile [style.background]="'lightgreen'">Code</mat-grid-tile>
-  <mat-grid-tile [style.background]="'lightgreen'">Name</mat-grid-tile>
-  <mat-grid-tile [style.background]="'lightgreen'">TimeZoneInfo</mat-grid-tile>
-  <mat-grid-tile></mat-grid-tile>
-</mat-grid-list>
-<mat-grid-list *ngFor="let province of provinces" cols="5" rowHeight="20px">
-  <mat-grid-tile>{{ province.id }}</mat-grid-tile>
-  <mat-grid-tile>{{ province.code }}</mat-grid-tile>
-  <mat-grid-tile>{{ province.name }}</mat-grid-tile>
-  <mat-grid-tile>{{ province.timeZoneInfo }}</mat-grid-tile>
-  <mat-grid-tile></mat-grid-tile>
-</mat-grid-list>
+<div>
+  <mat-form-field>
+    <mat-label>Cari</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. Aceh"
+      #input
+    />
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Code Column -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef>Code</th>
+      <td mat-cell *matCellDef="let element">{{ element.code }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="timeZoneInfo">
+      <th mat-header-cell *matHeaderCellDef>Time Zone Info</th>
+      <td mat-cell *matCellDef="let element">{{ element.timeZoneInfo }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="getDetails">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="getRecord(element.name)"
+        >
+          Edit
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <!-- <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of provinces"
+  >
+  </mat-paginator> -->
+</div>
