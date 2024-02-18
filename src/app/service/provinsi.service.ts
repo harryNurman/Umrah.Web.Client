@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProvinsiModel } from '../model/ProvinsiModel';
 import { AppConfiguration } from 'src/config/app-configuration';
 import { AppConfigurationService } from './app-configuration.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -35,9 +35,15 @@ export class ProvinsiService {
   }
 
   public postProvince(postdata: ProvinsiModel) {
+    console.log('Provinsi post');
+    console.log(postdata);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
     return this.http.post<ProvinsiModel>(
       this.appConfig?.baseUrl + 'api/Provinsi',
-      postdata
+      postdata,
+      { headers: headers }
     );
   }
 }

@@ -1,6 +1,6 @@
 export interface ProvinsiModel {
-  id: number;
-  code: string;
-  name: string;
-  timeZoneInfo: string;
+  Id: number;
+  Code: string;
+  Name: string;
+  TimeZoneInfo: string;
 }
