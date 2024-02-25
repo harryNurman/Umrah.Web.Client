@@ -10,6 +10,8 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./all-provinsi.component.css'],
 })
 export class AllProvinsiComponent implements OnInit, AfterViewInit {
+  value = 0;
+  loading = true;
   provinces: ProvinsiModel[] = [];
   displayedColumns: string[] = [
     'id',
@@ -36,9 +38,12 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
   }
 
   getProvincesList() {
+    this.loading = true;
     this.provinceService.getProvinces().subscribe((response) => {
+      this.value = this.value + 10;
       this.provinces = response;
       this.dataSource.data = this.provinces;
+      this.loading = false;
       // setTimeout(() => {
       //   this.dataSource.paginator = this.paginator;
       //   console.log(this.dataSource);

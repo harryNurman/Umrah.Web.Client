@@ -4,63 +4,78 @@
 </button>
 <br /><br />
 <div>
-  <mat-form-field>
-    <mat-label>Cari</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Ex. Aceh"
-      #input
-    />
-  </mat-form-field>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>Id</th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-    </ng-container>
-
-    <!-- Code Column -->
-    <ng-container matColumnDef="code">
-      <th mat-header-cell *matHeaderCellDef>Code</th>
-      <td mat-cell *matCellDef="let element">{{ element.code }}</td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="timeZoneInfo">
-      <th mat-header-cell *matHeaderCellDef>Time Zone Info</th>
-      <td mat-cell *matCellDef="let element">{{ element.timeZoneInfo }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="getDetails">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="getRecord(element.name)"
+  <div *ngIf="loading; else content">
+    <div class="spinner__loading">
+      <div>
+        <mat-progress-spinner
+          diameter="60"
+          [value]="value"
+          mode="indeterminate"
         >
-          Edit
-        </button>
-      </td>
-    </ng-container>
+        </mat-progress-spinner>
+      </div>
+    </div>
+  </div>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  <!-- <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
-    aria-label="Select page of provinces"
-  >
-  </mat-paginator> -->
+  <ng-template #content>
+    <mat-form-field>
+      <mat-label>Cari</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. Aceh"
+        #input
+      />
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <!-- Code Column -->
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef>Code</th>
+        <td mat-cell *matCellDef="let element">{{ element.code }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="timeZoneInfo">
+        <th mat-header-cell *matHeaderCellDef>Time Zone Info</th>
+        <td mat-cell *matCellDef="let element">{{ element.timeZoneInfo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="getDetails">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="getRecord(element.name)"
+          >
+            Edit
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <!-- <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of provinces"
+    >
+    </mat-paginator> -->
+  </ng-template>
 </div>

@@ -12,6 +12,7 @@ import { ProvinsiService } from 'src/app/service/provinsi.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from 'src/app/shared/components/dialog/alert-dialog/alert-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-provinsi',
@@ -19,7 +20,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/co
   styleUrls: ['./add-provinsi.component.css'],
 })
 export class AddProvinsiComponent implements OnInit, AfterViewChecked {
-  @ViewChild('myForms') myForm: ElementRef | undefined;
+  @ViewChild('myForm') myForm: NgForm | undefined;
   province = <ProvinsiModel>{};
   /**
    *
@@ -34,20 +35,25 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {}
 
   saveProvinsi(myForm: any): void {
-    this.province.Code = myForm.code.toString();
-    this.province.Name = myForm.name;
-    this.province.TimeZoneInfo = myForm.timeZoneInfo;
-    console.log(this.province);
-    this.provinsiService.postProvince(this.province).subscribe(
-      (response) => {
-        console.log('POST call reponse', response);
-        this.openAlertDialog('Save successfully');
-      },
-      (err: HttpErrorResponse) => {
-        this.openAlertDialog(err.error);
-        //console.log(err.error);
-      }
-    );
+    if (this.myForm?.valid) {
+      this.province.Code = myForm.code.toString();
+      this.province.Name = myForm.name;
+      this.province.TimeZoneInfo = myForm.timeZoneInfo;
+      console.log(this.province);
+      this.provinsiService.postProvince(this.province).subscribe(
+        (response) => {
+          console.log('POST call reponse', response);
+          this.openAlertDialog('Save successfully');
+        },
+        (err: HttpErrorResponse) => {
+          this.openAlertDialog(err.error);
+          //console.log(err.error);
+        }
+      );
+    } else {
+      console.log(this.myForm);
+      alert('Form is invalid');
+    }
   }
 
   openAlertDialog(message: string) {

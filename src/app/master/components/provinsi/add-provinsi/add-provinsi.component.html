@@ -12,6 +12,7 @@
       matInput
       placeholder="Kode Provinsi (angka)"
       ngModel
+      required
     />
     <mat-icon matSuffix>code</mat-icon>
     <!-- <mat-hint>Hint</mat-hint> -->
@@ -19,7 +20,14 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Nama provinsi</mat-label>
-    <input matInput name="name" id="" ngModel placeholder="Nama provinsi" />
+    <input
+      matInput
+      name="name"
+      id=""
+      ngModel
+      placeholder="Nama provinsi"
+      required
+    />
     <mat-icon matSuffix>public</mat-icon>
     <!-- <mat-hint>Hint</mat-hint> -->
   </mat-form-field>
@@ -31,6 +39,13 @@
     <!-- <mat-hint>Hint</mat-hint> -->
   </mat-form-field>
 
-  <button type="submit" mat-raised-button color="primary">Save</button>
+  <button
+    type="submit"
+    [disabled]="myForm.invalid"
+    mat-raised-button
+    color="primary"
+  >
+    Save
+  </button>
 </form>
 <!-- <h2>{{ myForm.value | json }}</h2> -->
