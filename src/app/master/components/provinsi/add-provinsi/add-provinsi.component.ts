@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   AfterViewChecked,
   Component,
@@ -9,10 +8,10 @@ import {
 import { MatRecycleRows } from '@angular/material/table';
 import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
 import { ProvinsiService } from 'src/app/service/provinsi.service';
-import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from 'src/app/shared/components/dialog/alert-dialog/alert-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-provinsi',
@@ -40,16 +39,14 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
       this.province.Name = myForm.name;
       this.province.TimeZoneInfo = myForm.timeZoneInfo;
       console.log(this.province);
-      this.provinsiService.postProvince(this.province).subscribe(
-        (response) => {
+      this.provinsiService.postProvince(this.province).subscribe({
+        next: (response) => {
           console.log('POST call reponse', response);
           this.openAlertDialog('Save successfully');
         },
-        (err: HttpErrorResponse) => {
-          this.openAlertDialog(err.error);
-          //console.log(err.error);
-        }
-      );
+        error: (e) => this.openAlertDialog(e.error),
+        complete: () => {},
+      });
     } else {
       console.log(this.myForm);
       alert('Form is invalid');

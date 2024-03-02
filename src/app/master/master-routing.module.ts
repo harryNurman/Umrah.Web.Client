@@ -8,6 +8,7 @@ import { KelurahanComponent } from './components/kelurahan/kelurahan.component';
 import { ErrorComponent } from '../error/error.component';
 import { AddProvinsiComponent } from './components/provinsi/add-provinsi/add-provinsi.component';
 import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
+import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-provinsi.component';
 
 const appRoutes: Routes = [
   {
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
         children: [
           { path: '', component: AllProvinsiComponent },
           { path: 'new', component: AddProvinsiComponent },
+          { path: 'edit/:id', component: EditProvinsiComponent },
         ],
       },
       { path: 'kabupaten', component: KabupatenKotaComponent },

@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
 import { MaterialModule } from '../shared/material.module';
 import { ProvinsiService } from '../service/provinsi.service';
+import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-provinsi.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ProvinsiService } from '../service/provinsi.service';
     KelurahanComponent,
     AddProvinsiComponent,
     AllProvinsiComponent,
+    EditProvinsiComponent,
   ],
   imports: [
     RouterModule,
