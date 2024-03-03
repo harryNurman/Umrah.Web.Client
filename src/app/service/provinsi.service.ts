@@ -58,11 +58,12 @@ export class ProvinsiService {
   }
 
   public putProvince(postdata: ProvinsiModel) {
-    console.log('Provinsi post');
+    console.log('Provinsi put');
     console.log(postdata);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
+
     return this.http.put<ProvinsiModel>(
       this.appConfig?.baseUrl + 'api/Provinsi',
       postdata,
