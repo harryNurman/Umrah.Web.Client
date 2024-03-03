@@ -1,1 +1,52 @@
-<p>edit-provinsi works!</p>
+<h2>Edit Province {{ ProvinceName }}</h2>
+<form
+  #myForm="ngForm"
+  (ngSubmit)="saveProvinsi(myForm.value)"
+  class="add-book-form"
+>
+  <mat-form-field appearance="fill">
+    <mat-label>Kode Provinsi</mat-label>
+    <input
+      type="number"
+      name="code"
+      matInput
+      placeholder="Kode Provinsi (angka)"
+      ngModel
+      required
+      readonly="true"
+    />
+    <mat-icon matSuffix>code</mat-icon>
+    <!-- <mat-hint>Hint</mat-hint> -->
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nama provinsi</mat-label>
+    <input
+      matInput
+      name="name"
+      id=""
+      ngModel
+      placeholder="Nama provinsi"
+      required
+    />
+    <mat-icon matSuffix>public</mat-icon>
+    <!-- <mat-hint>Hint</mat-hint> -->
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Time Zone Info</mat-label>
+    <input matInput name="timeZoneInfo" ngModel placeholder="Time Zone Info" />
+    <mat-icon matSuffix>public</mat-icon>
+    <!-- <mat-hint>Hint</mat-hint> -->
+  </mat-form-field>
+
+  <button
+    type="submit"
+    [disabled]="myForm.invalid"
+    mat-raised-button
+    color="primary"
+  >
+    Save
+  </button>
+</form>
+<!-- <h2>{{ myForm.value | json }}</h2> -->

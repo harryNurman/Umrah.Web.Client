@@ -34,6 +34,16 @@ export class ProvinsiService {
     );
   }
 
+  public getProvincesById(id: number) {
+    let url = this.appConfig?.baseUrl + `api/Provinsi/${id}`;
+    //console.log(url);
+    return this.http.get<ProvinsiModel>(url).pipe(
+      map((response) => {
+        return response;
+      })
+    );
+  }
+
   public postProvince(postdata: ProvinsiModel) {
     console.log('Provinsi post');
     console.log(postdata);
@@ -41,6 +51,19 @@ export class ProvinsiService {
       'Content-Type': 'application/json',
     });
     return this.http.post<ProvinsiModel>(
+      this.appConfig?.baseUrl + 'api/Provinsi',
+      postdata,
+      { headers: headers }
+    );
+  }
+
+  public putProvince(postdata: ProvinsiModel) {
+    console.log('Provinsi post');
+    console.log(postdata);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<ProvinsiModel>(
       this.appConfig?.baseUrl + 'api/Provinsi',
       postdata,
       { headers: headers }

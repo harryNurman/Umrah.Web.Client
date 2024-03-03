@@ -18,7 +18,7 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
   value = 0;
   loading = true;
   provinces: ProvinsiModel[] = [];
-  displayedColumns: string[] = ['id', 'code', 'name', 'timeZoneInfo', 'action'];
+  displayedColumns: string[] = ['Id', 'Code', 'Name', 'TimeZoneInfo', 'Action'];
 
   dataSource = new MatTableDataSource<ProvinsiModel>(this.provinces);
 
@@ -52,7 +52,7 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
         //   this.dataSource.paginator = this.paginator;
         //   console.log(this.dataSource);
         // });
-        //console.log(this.provinces);
+        console.log(this.provinces);
       },
       error: (e: HttpErrorResponse) => {
         this.loading = false;
@@ -71,9 +71,9 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
   }
 
   getRecord(model: any) {
-    alert(model.id);
-    var id = model.id.toString();
-    this.router.navigateByUrl(`master/provinsi/edit/${id}`);
+    alert(model.Id);
+    var Id = model.Id.toString();
+    this.router.navigateByUrl(`master/provinsi/edit/${Id}`);
   }
 
   deleteRecord(name: string) {
