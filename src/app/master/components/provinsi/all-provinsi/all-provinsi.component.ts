@@ -1,13 +1,24 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ComponentRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
 import { ProvinsiService } from 'src/app/service/provinsi.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AlertDialogComponent } from 'src/app/shared/components/dialog/alert-dialog/alert-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { HttpErrorResponse } from '@angular/common/http';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogConfig,
+} from '@angular/material/dialog';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-all-provinsi',
@@ -21,6 +32,7 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['Id', 'Code', 'Name', 'TimeZoneInfo', 'Action'];
 
   dataSource = new MatTableDataSource<ProvinsiModel>(this.provinces);
+  confirmDialog: MatDialogRef<ConfirmationDialogComponent> | undefined;
 
   // @ViewChild(MatPaginator)
   // set paginator(value: MatPaginator) {
@@ -52,11 +64,22 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
         //   this.dataSource.paginator = this.paginator;
         //   console.log(this.dataSource);
         // });
-        console.log(this.provinces);
+        //console.log(this.provinces);
       },
       error: (e: HttpErrorResponse) => {
         this.loading = false;
-        this.openAlertDialog(e.message);
+        this.dialog.open(AlertDialogComponent, {
+          data: {
+            title: 'Error',
+            message: e.message,
+            height: '250px',
+            width: '300px',
+            buttonText: {
+              cancelButtonText: 'OK',
+            },
+          },
+        });
+        //this.openAlertDialog(e.message);
       },
       complete: () => {},
     });
@@ -76,33 +99,78 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl(`master/provinsi/edit/${Id}`);
   }
 
-  deleteRecord(name: string) {
-    alert(name);
+  deleteRecord(model: any) {
+    //console.log(model.Name);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      message: `Delete province ${model.Name} ?`,
+    };
+
+    this.confirmDialog = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+
+    this.confirmDialog.afterClosed().subscribe((confirm) => {
+      if (confirm) {
+        this.deleteProvice(model.Id, model.Name);
+      }
+    });
   }
 
-  openAlertDialog(message: string) {
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: {
-        message: message,
-        height: '200px',
-        buttonText: {
-          cancel: 'OK',
-        },
+  deleteProvice(id: number, name: string) {
+    this.loading = true;
+    this.provinceService.deleteProvince(id).subscribe({
+      next: () => {
+        this.getProvincesList();
+      },
+      error: (e: HttpErrorResponse) => {
+        this.loading = false;
+        this.dialog.open(AlertDialogComponent, {
+          data: {
+            title: 'Success',
+            message: `Province ${name} deleted successfully`,
+            height: '200px',
+            width: '300px',
+            buttonText: {
+              cancelButtonText: 'OK',
+            },
+          },
+        });
+        //this.openAlertDialog(e.message);
+      },
+      complete: () => {
+        this.loading = false;
       },
     });
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      height: '100px',
-      width: '100px',
-      data: {
-        message: 'Are you sure want to delete?',
-        buttonText: {
-          ok: 'Save',
-          cancel: 'No',
-        },
-      },
-    });
-  }
+  // openAlertDialog(message: string) {
+  //   const dialogRef = this.dialog.open(AlertDialogComponent, {
+  //     data: {
+  //       message: message,
+  //       height: '200px',
+  //       buttonText: {
+  //         cancel: 'OK',
+  //       },
+  //     },
+  //   });
+  //   dialogRef.disableClose = true;
+  // }
+
+  // openDialog(model: any) {
+  //   const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+  //     height: '100px',
+  //     width: '100px',
+  //     data: {
+  //       message: `Are you sure want to delete ${model.name} ?`,
+  //       buttonText: {
+  //         ok: 'Yes',
+  //         cancel: 'No',
+  //       },
+  //     },
+  //   });
+  // }
 }

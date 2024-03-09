@@ -70,4 +70,15 @@ export class ProvinsiService {
       { headers: headers }
     );
   }
+
+  public deleteProvince(proviceId: number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.delete(
+      this.appConfig?.baseUrl + `api/Provinsi/${proviceId}`,
+      { headers: headers }
+    );
+  }
 }

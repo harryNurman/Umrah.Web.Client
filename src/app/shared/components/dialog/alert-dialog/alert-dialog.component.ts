@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./alert-dialog.component.css'],
 })
 export class AlertDialogComponent {
+  title: string = '';
   message: string = '';
   cancelButtonText = 'Cancel';
   height: string = '';
@@ -16,6 +17,7 @@ export class AlertDialogComponent {
     private dialogRef: MatDialogRef<AlertDialogComponent>
   ) {
     if (data) {
+      this.title = data.title || this.title;
       this.message = data.message || this.message;
       if (data.buttonText) {
         this.cancelButtonText = data.buttonText.cancel || this.cancelButtonText;

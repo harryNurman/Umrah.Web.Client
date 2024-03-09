@@ -25,7 +25,8 @@ export class EditProvinsiComponent implements OnInit {
   constructor(
     private provinsiService: ProvinsiService,
     private activatedRouter: ActivatedRoute,
-    public dialog: MatDialog //private cd: ChangeDetectorRef
+    public dialog: MatDialog,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.activatedRouter.params.subscribe({
@@ -72,8 +73,20 @@ export class EditProvinsiComponent implements OnInit {
       console.log(this.province);
       this.provinsiService.putProvince(this.province).subscribe({
         next: (response) => {
-          console.log('PUT call reponse', response);
-          this.openAlertDialog('Save successfully');
+          //console.log('PUT call reponse', response);
+          //this.openAlertDialog('Save successfully');
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              message: 'Updated successfully',
+              height: '200px',
+              width: '300px',
+              title: 'Success',
+              buttonText: {
+                cancel: 'OK',
+              },
+            },
+          });
+          this.router.navigateByUrl(`master/provinsi`);
         },
         error: (e) => this.openAlertDialog(e.error),
         complete: () => {},

@@ -12,6 +12,7 @@ import { AlertDialogComponent } from 'src/app/shared/components/dialog/alert-dia
 import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-provinsi',
@@ -26,7 +27,8 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
    */
   constructor(
     private provinsiService: ProvinsiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {}
   ngAfterViewChecked(): void {
     //console.log(this.myForm);
@@ -41,10 +43,34 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
       console.log(this.province);
       this.provinsiService.postProvince(this.province).subscribe({
         next: (response) => {
-          console.log('POST call reponse', response);
-          this.openAlertDialog('Save successfully');
+          //console.log('POST call reponse', response);
+          //this.openAlertDialog('Save successfully');
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Success',
+              message: 'Saved successfully',
+              width: '200px',
+              height: '300px',
+              buttonText: {
+                cancel: 'OK',
+              },
+            },
+          });
+          this.router.navigateByUrl(`master/provinsi`);
         },
-        error: (e) => this.openAlertDialog(e.error),
+        error: (e) => {
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Error',
+              message: e.error,
+              width: '300px',
+              height: '200px',
+              buttonText: {
+                cancel: 'OK',
+              },
+            },
+          });
+        },
         complete: () => {},
       });
     } else {
@@ -53,28 +79,28 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  openAlertDialog(message: string) {
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: {
-        message: message,
-        buttonText: {
-          cancel: 'OK',
-        },
-      },
-    });
-  }
+  // openAlertDialog(message: string) {
+  //   const dialogRef = this.dialog.open(AlertDialogComponent, {
+  //     data: {
+  //       message: message,
+  //       buttonText: {
+  //         cancel: 'OK',
+  //       },
+  //     },
+  //   });
+  // }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      height: '100px',
-      width: '100px',
-      data: {
-        message: 'Are you sure want to delete?',
-        buttonText: {
-          ok: 'Save',
-          cancel: 'No',
-        },
-      },
-    });
-  }
+  // openDialog() {
+  //   const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+  //     height: '100px',
+  //     width: '100px',
+  //     data: {
+  //       message: 'Are you sure want to delete?',
+  //       buttonText: {
+  //         ok: 'Save',
+  //         cancel: 'No',
+  //       },
+  //     },
+  //   });
+  // }
 }
