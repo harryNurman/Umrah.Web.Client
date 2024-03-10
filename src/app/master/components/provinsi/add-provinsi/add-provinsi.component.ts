@@ -7,12 +7,12 @@ import {
 } from '@angular/core';
 import { MatRecycleRows } from '@angular/material/table';
 import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
-import { ProvinsiService } from 'src/app/service/provinsi.service';
 import { AlertDialogComponent } from 'src/app/shared/components/dialog/alert-dialog/alert-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ProvinceService } from 'src/app/service/province.service';
 
 @Component({
   selector: 'app-add-provinsi',
@@ -26,7 +26,7 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
    *
    */
   constructor(
-    private provinsiService: ProvinsiService,
+    private provinsiService: ProvinceService,
     public dialog: MatDialog,
     private router: Router
   ) {}
@@ -41,7 +41,7 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
       this.province.Name = myForm.name;
       this.province.TimeZoneInfo = myForm.timeZoneInfo;
       console.log(this.province);
-      this.provinsiService.postProvince(this.province).subscribe({
+      this.provinsiService.add(this.province).subscribe({
         next: (response) => {
           //console.log('POST call reponse', response);
           //this.openAlertDialog('Save successfully');
@@ -78,29 +78,4 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
       alert('Form is invalid');
     }
   }
-
-  // openAlertDialog(message: string) {
-  //   const dialogRef = this.dialog.open(AlertDialogComponent, {
-  //     data: {
-  //       message: message,
-  //       buttonText: {
-  //         cancel: 'OK',
-  //       },
-  //     },
-  //   });
-  // }
-
-  // openDialog() {
-  //   const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-  //     height: '100px',
-  //     width: '100px',
-  //     data: {
-  //       message: 'Are you sure want to delete?',
-  //       buttonText: {
-  //         ok: 'Save',
-  //         cancel: 'No',
-  //       },
-  //     },
-  //   });
-  // }
 }

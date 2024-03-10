@@ -5,7 +5,7 @@ import { AlertDialogComponent } from 'src/app/shared/components/dialog/alert-dia
 import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ProvinsiService } from 'src/app/service/provinsi.service';
+import { ProvinceService } from 'src/app/service/province.service';
 
 @Component({
   selector: 'app-edit-provinsi',
@@ -23,7 +23,7 @@ export class EditProvinsiComponent implements OnInit {
   ProvinceName: String = '';
 
   constructor(
-    private provinsiService: ProvinsiService,
+    private provinsiService: ProvinceService,
     private activatedRouter: ActivatedRoute,
     public dialog: MatDialog,
     private router: Router
@@ -42,7 +42,7 @@ export class EditProvinsiComponent implements OnInit {
   }
 
   getProvince(id: number) {
-    this.provinsiService.getProvincesById(id).subscribe({
+    this.provinsiService.get(id).subscribe({
       next: (response) => {
         //console.log('Get call reponse', response);
         this.province = response;
@@ -71,7 +71,7 @@ export class EditProvinsiComponent implements OnInit {
       this.province.Name = myForm.name;
       this.province.TimeZoneInfo = myForm.timeZoneInfo;
       console.log(this.province);
-      this.provinsiService.putProvince(this.province).subscribe({
+      this.provinsiService.update(this.province).subscribe({
         next: (response) => {
           //console.log('PUT call reponse', response);
           //this.openAlertDialog('Save successfully');

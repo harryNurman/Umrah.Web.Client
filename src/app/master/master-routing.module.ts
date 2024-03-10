@@ -9,6 +9,9 @@ import { ErrorComponent } from '../error/error.component';
 import { AddProvinsiComponent } from './components/provinsi/add-provinsi/add-provinsi.component';
 import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
 import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-provinsi.component';
+import { KabupatenKotaListComponent } from './components/kabupaten-kota/kabupaten-kota-list/kabupaten-kota-list.component';
+import { AddKabupatenKotaComponent } from './components/kabupaten-kota/add-kabupaten-kota/add-kabupaten-kota.component';
+import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kabupaten-kota/edit-kabupaten-kota.component';
 
 const appRoutes: Routes = [
   {
@@ -24,7 +27,15 @@ const appRoutes: Routes = [
           { path: 'edit/:id', component: EditProvinsiComponent },
         ],
       },
-      { path: 'kabupaten', component: KabupatenKotaComponent },
+      {
+        path: 'kabupaten',
+        component: KabupatenKotaComponent,
+        children: [
+          { path: '', component: KabupatenKotaListComponent },
+          { path: 'new', component: AddKabupatenKotaComponent },
+          { path: 'edit/:id', component: EditKabupatenKotaComponent },
+        ],
+      },
       { path: 'kecamatan', component: KecamatanComponent },
       { path: 'kelurahan', component: KelurahanComponent },
     ],

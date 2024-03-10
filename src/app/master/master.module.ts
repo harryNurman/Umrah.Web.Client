@@ -11,8 +11,11 @@ import { AddProvinsiComponent } from './components/provinsi/add-provinsi/add-pro
 import { SharedModule } from '../shared/shared.module';
 import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
 import { MaterialModule } from '../shared/material.module';
-import { ProvinsiService } from '../service/provinsi.service';
+import { ProvinceService } from '../service/province.service';
 import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-provinsi.component';
+import { KabupatenKotaListComponent } from './components/kabupaten-kota/kabupaten-kota-list/kabupaten-kota-list.component';
+import { AddKabupatenKotaComponent } from './components/kabupaten-kota/add-kabupaten-kota/add-kabupaten-kota.component';
+import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kabupaten-kota/edit-kabupaten-kota.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-
     AddProvinsiComponent,
     AllProvinsiComponent,
     EditProvinsiComponent,
+    KabupatenKotaListComponent,
+    AddKabupatenKotaComponent,
+    EditKabupatenKotaComponent,
   ],
   imports: [
     RouterModule,
@@ -34,6 +40,6 @@ import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-
     MaterialModule,
   ],
   exports: [],
-  providers: [ProvinsiService],
+  providers: [ProvinceService],
 })
 export class MasterModule {}
