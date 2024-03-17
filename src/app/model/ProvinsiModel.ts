@@ -5,3 +5,11 @@ export interface ProvinsiModel {
   TimeZoneInfo: string;
   CreatedAt: Date;
 }
+
+export interface ProvinceData {
+  Data: ProvinsiModel[];
+  Page: number;
+  PageSize: number;
+  TotalRows: number;
+  TotalPages: number;
+}

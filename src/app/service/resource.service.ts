@@ -6,12 +6,12 @@ import {
 } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export abstract class ResourceService<T> {
+export abstract class ResourceService<T, S> {
   private readonly APIUrl = environment.apiBaseUrl + this.getResourceUrl();
 
   constructor(protected httpClient: HttpClient) {}
@@ -26,20 +26,65 @@ export abstract class ResourceService<T> {
     return json;
   }
 
-  getList(index: number, page: number): Observable<T[]> {
+  fromListToModel(json: any): S {
+    return json;
+  }
+
+  getList(
+    columnName: string,
+    columnValue: string,
+    pageNo: number,
+    pageSize: number
+  ): Observable<Task[]> {
     let params = new HttpParams()
-      .set('limit', index.toString())
-      .set('offset', page.toString());
-    return (
-      this.httpClient
-        //.get<T[]>(`/${this.APIUrl}?${params.toString()}`)
-        .get<T[]>(`${this.APIUrl}?${params.toString()}`)
-        .pipe(
-          map((list) => list.map((item) => this.fromServerModel(item))),
-          catchError(this.handleError)
-        )
+      .set('searchColumn', columnName.toString())
+      .set('searchValue', columnValue.toString())
+      .set('pageNo', pageNo.toString())
+      .set('pageSize', pageSize.toString());
+    return this.httpClient
+      .post<T[]>(`${this.APIUrl}/list?${params.toString()}`, null)
+      .pipe(
+        map((list) => list.map((item) => this.toServerModel(item))),
+        catchError(this.handleError)
+      );
+  }
+
+  getListTable(
+    columnName: string,
+    columnValue: string,
+    pageNo: number,
+    pageSize: number
+  ): Observable<S> {
+    let params = new HttpParams()
+      .set('searchColumn', columnName.toString())
+      .set('searchValue', columnValue.toString())
+      .set('pageNo', pageNo.toString())
+      .set('pageSize', pageSize.toString());
+    const url = `${this.APIUrl}/list?${params.toString()}`;
+    return this.httpClient.get<S>(url).pipe(
+      map((x) => this.fromListToModel(x)),
+      catchError(this.handleError)
     );
   }
+
+  // getListTable(
+  //   columnName: string,
+  //   columnValue: string,
+  //   pageNo: number,
+  //   pageSize: number
+  // ): Observable<S> {
+  //   let params = new HttpParams()
+  //     .set('searchColumn', columnName.toString())
+  //     .set('searchValue', columnValue.toString())
+  //     .set('pageNo', pageNo.toString())
+  //     .set('pageSize', pageSize.toString());
+  //   return this.httpClient
+  //     .get<S>(`${this.APIUrl}/list?${params.toString()}`)
+  //     .pipe(
+  //       map((list) => this.toServerModel(list))),
+  //       catchError(this.handleError)
+  //     );
+  // }
 
   get(id: string | number): Observable<T> {
     return this.httpClient.get<T>(`${this.APIUrl}/${id}`).pipe(

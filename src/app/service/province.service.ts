@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ResourceService } from './resource.service';
-import { ProvinsiModel } from '../model/ProvinsiModel';
+import { ProvinceData, ProvinsiModel } from '../model/ProvinsiModel';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProvinceService extends ResourceService<ProvinsiModel> {
+export class ProvinceService extends ResourceService<
+  ProvinsiModel,
+  ProvinceData
+> {
   constructor(protected override httpClient: HttpClient) {
     super(httpClient);
   }
