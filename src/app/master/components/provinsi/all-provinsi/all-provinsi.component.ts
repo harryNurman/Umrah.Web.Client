@@ -19,6 +19,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, filter, map, startWith, switchMap, tap } from 'rxjs';
 import { ProvinceService } from 'src/app/service/province.service';
+import { SearchColumn } from 'src/app/model/SearchColumn';
 
 @Component({
   selector: 'app-all-provinsi',
@@ -28,8 +29,7 @@ import { ProvinceService } from 'src/app/service/province.service';
 export class AllProvinsiComponent implements OnInit, AfterViewInit {
   value = 0;
   loading = true;
-  searchColumn: string = '';
-  searchValue: string = '';
+
   pageNo: number = 1;
   pageSize: number = 10;
   provinces: ProvinsiModel[] = [];
@@ -38,6 +38,8 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
   pageSizes = [3, 5, 7];
   totalData: number = 0;
   pageEvent: PageEvent;
+  searchColumn: string = '';
+  searchValue: string = '';
 
   //dataSource = new MatTableDataSource<ProvinsiModel>(this.provinces);
   provinceData: ProvinceData;
@@ -45,7 +47,7 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
 
   confirmDialog: MatDialogRef<ConfirmationDialogComponent>;
   @ViewChild('paginator') paginator: MatPaginator;
-  searchColumns = [
+  searchColumnsList: SearchColumn[] = [
     { value: 'Name', viewValue: 'Name' },
     { value: 'Code', viewValue: 'Code' },
   ];
@@ -58,7 +60,12 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
 
   initDataSource() {
     this.provinceService
-      .getListTable('', '', this.pageNo, this.pageSize)
+      .getListTable(
+        this.searchColumn,
+        this.searchValue,
+        this.pageNo,
+        this.pageSize
+      )
       .pipe(
         //tap((provinces) => console.log(provinces)),
         map((provinceData: ProvinceData) => {
@@ -80,7 +87,7 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
     page = page + 1;
 
     this.provinceService
-      .getListTable('', '', page, pageSize)
+      .getListTable(this.searchColumn, this.searchValue, page, pageSize)
       .pipe(
         map((provinceResult: ProvinceData) => {
           this.provinceData = provinceResult;
@@ -96,63 +103,7 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.initDataSource();
-    //console.log(this.searchColumns);
-    // this.getProvincesList$(
-    //   this.searchColumn,
-    //   this.searchValue,
-    //   this.pageNo,
-    //   this.pageSize
-    // );
   }
-
-  // getProvincesList$(
-  //   searchColumn: string,
-  //   searchValue: string,
-  //   pageNumber: number,
-  //   pageSize: number
-  // ) {
-  //   this.loading = true;
-  //   this.provinceService
-  //     .getListTable(searchColumn, searchValue, pageNumber, pageSize)
-  //     .subscribe({
-  //       next: (response) => {
-  //         console.log(response);
-  //         this.value = this.value + 10;
-  //         this.provinces = response.Data;
-  //         this.dataSource.data = this.provinces;
-  //         this.loading = false;
-  //         // setTimeout(() => {
-  //         //   this.dataSource.paginator = this.paginator;
-  //         //   console.log(this.dataSource);
-  //         // });
-  //         //console.log(this.provinces);
-  //       },
-  //       error: (e: HttpErrorResponse) => {
-  //         this.loading = false;
-  //         this.dialog.open(AlertDialogComponent, {
-  //           data: {
-  //             title: 'Error',
-  //             message: e.message,
-  //             height: '250px',
-  //             width: '300px',
-  //             buttonText: {
-  //               cancelButtonText: 'OK',
-  //             },
-  //           },
-  //         });
-  //         //this.openAlertDialog(e.message);
-  //       },
-  //       complete: () => {},
-  //     });
-  // }
-
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   //console.log(filterValue);
-
-  //   this.dataSource.filter = filterValue.trim();
-  //   //console.log(this.dataSource);
-  // }
 
   getRecord(model: any) {
     //alert(model.Id);
@@ -219,5 +170,16 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
     });
   }
 
-  searchProvinceBy(value: string) {}
+  searchByCriteria($event: any, value: SearchColumn) {
+    //console.log(this.searchColumn);
+  }
+
+  searchByValue(value: string) {
+    //console.log(this.searchValue);
+  }
+
+  searchProvince(event: Event) {
+    //console.log('search');
+    this.initDataSource();
+  }
 }

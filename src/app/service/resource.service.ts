@@ -50,14 +50,14 @@ export abstract class ResourceService<T, S> {
   }
 
   getListTable(
-    columnName: string,
-    columnValue: string,
+    searchColumn: string,
+    searchValue: string,
     pageNo: number,
     pageSize: number
   ): Observable<S> {
     let params = new HttpParams()
-      .set('searchColumn', columnName.toString())
-      .set('searchValue', columnValue.toString())
+      .set('searchColumn', searchColumn.toString())
+      .set('searchValue', searchValue.toString())
       .set('pageNo', pageNo.toString())
       .set('pageSize', pageSize.toString());
     const url = `${this.APIUrl}/list?${params.toString()}`;

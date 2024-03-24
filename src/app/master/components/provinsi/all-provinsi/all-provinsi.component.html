@@ -17,18 +17,32 @@
     </div> 
   </div>-->
   <!-- <ng-template #content> -->
-  <div style="background: yellow">
-    <mat-form-field class="no-padding">
-      <mat-select placeholder="Search Province By">
-        <mat-option *ngFor="let search of searchColumns" [value]="search.value">
+  <div class="example-container">
+    <mat-form-field>
+      <mat-label>Filter By</mat-label>
+      <mat-select placeholder="Search Province By" [(value)]="searchColumn">
+        <mat-option
+          *ngFor="let search of searchColumnsList"
+          [value]="search.value"
+          (onSelectionChange)="searchByCriteria($event, search)"
+        >
           {{ search.viewValue }}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Filter Value</mat-label>
-      <input matInput placeholder="Ex. Aceh" #input />
+      <input
+        matInput
+        [(ngModel)]="searchValue"
+        (input)="searchByValue(searchValue)"
+        placeholder="Ex. Aceh"
+      />
     </mat-form-field>
+    &nbsp; &nbsp;
+    <button mat-raised-button color="primary" (click)="searchProvince($event)">
+      Search
+    </button>
   </div>
 
   <!-- <mat-label>Cari</mat-label>
