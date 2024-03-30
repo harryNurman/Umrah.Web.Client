@@ -71,7 +71,7 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
       .pipe(
         //tap((provinces) => console.log(provinces)),
         map((provinceData: ProvinceData) => {
-          console.log(provinceData);
+          //console.log(provinceData);
           this.provinceData = provinceData;
           this.totalData = provinceData.TotalRows;
           this.pageSize = provinceData.PageSize;

@@ -2,6 +2,7 @@
   <span>Sahabat Umrah</span>
   <button mat-button>Home</button>
   <button mat-button [matMenuTriggerFor]="masters">Master Data</button>
+  <button mat-button [matMenuTriggerFor]="transactions">Transactions</button>
   <mat-menu #masters="matMenu">
     <button mat-menu-item [matMenuTriggerFor]="residensces">Residensial</button>
     <button mat-menu-item>Airline</button>
@@ -11,6 +12,10 @@
     <button mat-menu-item routerLink="/master/kabupaten">Kabupaten/Kota</button>
     <button mat-menu-item routerLink="/master/kecamatan">Kecamatan</button>
     <button mat-menu-item routerLink="/master/kelurahan">Kelurahan</button>
+  </mat-menu>
+  <mat-menu #transactions="matMenu">
+    <button mat-menu-item>Jamaah</button>
+    <button mat-menu-item>Registrasi</button>
   </mat-menu>
   <span class="example-spacer"></span>
   <button mat-button>Sign out</button>
