@@ -53,9 +53,9 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
               title: 'Success',
               message: 'Saved successfully',
               width: '300px',
-              height: '200px',
+              height: '180px',
               buttonText: {
-                cancel: 'OK',
+                cancelButtonText: 'OK',
               },
             },
           });
@@ -71,7 +71,7 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
               width: '300px',
               height: '200px',
               buttonText: {
-                cancel: 'OK',
+                cancelButtonText: 'OK',
               },
             },
           });

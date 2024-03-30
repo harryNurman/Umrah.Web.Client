@@ -102,13 +102,28 @@ export class EditProvinsiComponent implements OnInit {
               width: '300px',
               title: 'Success',
               buttonText: {
-                cancel: 'OK',
+                cancelButtonText: 'OK',
               },
             },
           });
-          this.router.navigateByUrl(`master/provinsi`);
+          this.dialogRef.close(true);
+          //this.router.navigateByUrl(`master/provinsi`);
         },
-        error: (e) => this.openAlertDialog(e.error),
+        error: (e) => {
+          //this.openAlertDialog(e.error);
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              message: e.error,
+              height: '200px',
+              width: '300px',
+              title: 'Error',
+              buttonText: {
+                cancelButtonText: 'OK',
+              },
+            },
+          });
+          this.dialogRef.close(false);
+        },
         complete: () => {},
       });
     } else {

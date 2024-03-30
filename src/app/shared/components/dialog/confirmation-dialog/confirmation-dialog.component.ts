@@ -11,6 +11,8 @@ export class ConfirmationDialogComponent {
   message: string = 'Are you sure?';
   confirmButtonText = 'Yes';
   cancelButtonText = 'No';
+  width = '200px';
+  height = '200px';
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<ConfirmationDialogComponent>
@@ -18,10 +20,21 @@ export class ConfirmationDialogComponent {
     if (data) {
       this.title = data.title || this.title;
       this.message = data.message || this.message;
+
+      if (data.width) {
+        this.width = data.width;
+      }
+
+      if (data.height) {
+        this.height = data.height;
+      }
+
       if (data.buttonText) {
         this.confirmButtonText = data.buttonText.ok || this.confirmButtonText;
         this.cancelButtonText = data.buttonText.cancel || this.cancelButtonText;
       }
+
+      dialogRef.updateSize(this.width, this.height);
     }
   }
 

@@ -103,6 +103,7 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.initDataSource();
   }
+
   ngOnInit(): void {
     this.initDataSource();
   }
@@ -120,6 +121,8 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       message: `Delete province ${model.Name} ?`,
+      width: '300px',
+      height: '200px',
     };
 
     this.confirmDialog = this.dialog.open(
@@ -144,13 +147,13 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
             title: 'Success',
             message: `Province ${name} deleted successfully`,
             height: '200px',
-            width: '300px',
+            width: '350px',
             buttonText: {
               cancelButtonText: 'OK',
             },
           },
         });
-        //this.getProvincesList$();
+        this.initDataSource();
       },
       error: (e: HttpErrorResponse) => {
         this.loading = false;

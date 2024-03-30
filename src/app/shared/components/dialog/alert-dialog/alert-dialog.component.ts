@@ -19,8 +19,9 @@ export class AlertDialogComponent {
     if (data) {
       this.title = data.title || this.title;
       this.message = data.message || this.message;
-      if (data.buttonText) {
-        this.cancelButtonText = data.buttonText.cancel || this.cancelButtonText;
+      console.log(data);
+      if (data.buttonText.cancelButtonText) {
+        this.cancelButtonText = this.data.buttonText.cancelButtonText;
       }
       if (data.height) {
         this.height = data.height;
