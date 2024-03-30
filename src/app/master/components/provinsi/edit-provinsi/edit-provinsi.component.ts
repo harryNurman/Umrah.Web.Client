@@ -1,10 +1,20 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
 import { AlertDialogComponent } from 'src/app/shared/components/dialog/alert-dialog/alert-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { NgForm } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { ProvinceService } from 'src/app/service/province.service';
 
 @Component({
@@ -21,24 +31,34 @@ export class EditProvinsiComponent implements OnInit {
   province = <ProvinsiModel>{};
   provinceId?: number = undefined;
   ProvinceName: String = '';
+  Id?: number = undefined;
 
   constructor(
     private provinsiService: ProvinceService,
     private activatedRouter: ActivatedRoute,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private dialogRef: MatDialogRef<EditProvinsiComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
   ngOnInit(): void {
-    this.activatedRouter.params.subscribe({
-      next: (param) => {
-        console.log(param);
-        this.provinceId = param['id'];
-        console.log(this.provinceId);
-        if (this.provinceId != undefined) {
-          this.getProvince(this.provinceId);
-        }
-      },
-    });
+    if (this.data) {
+      this.Id = this.data.Id;
+      if (this.Id != undefined) {
+        this.getProvince(this.Id);
+        this.dialogRef.updateSize('400px', '450px');
+      }
+    }
+    // this.activatedRouter.params.subscribe({
+    //   next: (param) => {
+    //     console.log(param);
+    //     this.provinceId = param['id'];
+    //     console.log(this.provinceId);
+    //     if (this.provinceId != undefined) {
+    //       this.getProvince(this.provinceId);
+    //     }
+    //   },
+    // });
   }
 
   getProvince(id: number) {

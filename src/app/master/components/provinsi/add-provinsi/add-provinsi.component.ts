@@ -10,7 +10,7 @@ import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
 import { AlertDialogComponent } from 'src/app/shared/components/dialog/alert-dialog/alert-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { NgForm } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ProvinceService } from 'src/app/service/province.service';
 
@@ -28,12 +28,15 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
   constructor(
     private provinsiService: ProvinceService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private dialogRef: MatDialogRef<AddProvinsiComponent>
   ) {}
   ngAfterViewChecked(): void {
     //console.log(this.myForm);
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dialogRef.updateSize('450px', '450px');
+  }
 
   saveProvinsi(myForm: any): void {
     if (this.myForm?.valid) {
@@ -49,16 +52,18 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
             data: {
               title: 'Success',
               message: 'Saved successfully',
-              width: '200px',
-              height: '300px',
+              width: '300px',
+              height: '200px',
               buttonText: {
                 cancel: 'OK',
               },
             },
           });
-          this.router.navigateByUrl(`master/provinsi`);
+          this.dialogRef.close(true);
+          //this.router.navigateByUrl(`master/provinsi`);
         },
         error: (e) => {
+          console.log(e);
           this.dialog.open(AlertDialogComponent, {
             data: {
               title: 'Error',
@@ -70,6 +75,7 @@ export class AddProvinsiComponent implements OnInit, AfterViewChecked {
               },
             },
           });
+          this.dialogRef.close(false);
         },
         complete: () => {},
       });

@@ -20,6 +20,8 @@ import { Router } from '@angular/router';
 import { catchError, filter, map, startWith, switchMap, tap } from 'rxjs';
 import { ProvinceService } from 'src/app/service/province.service';
 import { SearchColumn } from 'src/app/model/SearchColumn';
+import { EditProvinsiComponent } from '../edit-provinsi/edit-provinsi.component';
+import { AddProvinsiComponent } from '../add-provinsi/add-provinsi.component';
 
 @Component({
   selector: 'app-all-provinsi',
@@ -181,5 +183,34 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
   searchProvince(event: Event) {
     //console.log('search');
     this.initDataSource();
+  }
+
+  openEditForm(data: any) {
+    //console.log(data);
+    const dialogRef = this.dialog.open(EditProvinsiComponent, {
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.initDataSource();
+        }
+      },
+    });
+  }
+
+  openAddForm() {
+    //console.log(data);
+    const dialogRef = this.dialog.open(AddProvinsiComponent);
+
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        console.log(val);
+        if (val) {
+          this.initDataSource();
+        }
+      },
+    });
   }
 }

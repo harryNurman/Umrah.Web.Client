@@ -97,3 +97,7 @@ li a:hover {
 .footer {
   margin-top: 10px;
 }
+
+.saveButton {
+  width: 200px;
+}

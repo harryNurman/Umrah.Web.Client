@@ -32,8 +32,8 @@ export class AlertDialogComponent {
     }
     this.height = this.height === '' ? '150px' : this.height;
     this.width = this.width === '' ? '300px' : this.width;
-    console.log(this.width);
-    console.log(this.height);
+    // console.log(this.width);
+    // console.log(this.height);
     this.dialogRef.updateSize(this.width, this.height);
   }
 

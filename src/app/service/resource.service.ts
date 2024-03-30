@@ -113,6 +113,7 @@ export abstract class ResourceService<T, S> {
 
   private handleError(error: HttpErrorResponse) {
     // Handle the HTTP error here
-    return throwError(() => new Error(error.message));
+    //console.log(error);
+    return throwError(() => error);
   }
 }
