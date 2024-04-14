@@ -5,7 +5,6 @@ import {
   KabupatenKotaModel,
 } from '../model/KabupatenKotaModel';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, catchError, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

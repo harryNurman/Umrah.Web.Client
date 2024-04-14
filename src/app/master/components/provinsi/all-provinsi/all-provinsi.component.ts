@@ -96,8 +96,10 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
     let params = new HttpParams()
       .set('searchColumn', this.searchColumn.toString())
       .set('searchValue', this.searchValue.toString())
-      .set('pageNo', this.pageNo.toString())
+      .set('pageNo', page.toString())
       .set('pageSize', this.pageSize.toString());
+
+    console.log(params);
 
     this.provinceService
       .getList(params)
