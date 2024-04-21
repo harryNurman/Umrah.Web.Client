@@ -20,7 +20,18 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError, filter, map, startWith, switchMap, tap } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  of,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { ProvinceService } from 'src/app/service/province.service';
 import { SearchColumn } from 'src/app/model/SearchColumn';
 import { KabupatenKotaService } from 'src/app/service/kabupaten-kota.service';
@@ -30,13 +41,15 @@ import {
 } from 'src/app/model/KabupatenKotaModel';
 import { AddKabupatenKotaComponent } from '../add-kabupaten-kota/add-kabupaten-kota.component';
 import { EditProvinsiComponent } from '../../provinsi/edit-provinsi/edit-provinsi.component';
+import { FormControl } from '@angular/forms';
+import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
 
 @Component({
   selector: 'app-kabupaten-kota-list',
   templateUrl: './kabupaten-kota-list.component.html',
   styleUrls: ['./kabupaten-kota-list.component.css'],
 })
-export class KabupatenKotaListComponent {
+export class KabupatenKotaListComponent implements OnInit {
   value = 0;
   loading = true;
 
@@ -47,9 +60,8 @@ export class KabupatenKotaListComponent {
   displayedColumns: string[] = [
     'Id',
     'ProvinceName',
-    'Code',
-    'Name',
-    'TimeZoneInfo',
+    'KabupatenCode',
+    'KabupatenName',
     'Action',
   ];
   provinceCode: string = '';
@@ -69,14 +81,48 @@ export class KabupatenKotaListComponent {
     { value: 'Code', viewValue: 'Code' },
   ];
 
+  provinceLookup = new FormControl('');
+  options = [];
+  filteredProvinsi$: Observable<ProvinsiModel[]>;
+
   /**
    *
    */
   constructor(
     private kabupatenKotaService: KabupatenKotaService,
+    private provinceService: ProvinceService,
     public dialog: MatDialog,
     private router: Router
   ) {}
+
+  lookup(val: string): Observable<ProvinsiModel[]> {
+    var pageNo = 1;
+    var pageSize = 20;
+    let params = new HttpParams()
+      .set('searchColumn', this.searchColumn.toString())
+      .set('searchValue', val.toString())
+      .set('pageNo', pageNo.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.provinceService.getList(params).pipe(
+      map((response) =>
+        response.Data.filter((option) => {
+          return option;
+        })
+      )
+    );
+  }
+
+  ngOnInit(): void {
+    this.filteredProvinsi$ = this.provinceLookup.valueChanges.pipe(
+      startWith(''),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap((val) => {
+        return this.lookup(val || '');
+      })
+    );
+  }
 
   searchByValue(value: string) {
     //console.log(this.searchValue);
@@ -105,7 +151,7 @@ export class KabupatenKotaListComponent {
           this.totalData = result.TotalRows;
           this.pageSize = result.PageSize;
           this.dataSource = new MatTableDataSource(result.Data);
-          //console.log(this.dataSource);
+          console.log(this.dataSource);
         })
       )
       .subscribe();
@@ -175,23 +221,5 @@ export class KabupatenKotaListComponent {
     this.pageNo = page;
 
     this.initDataSource();
-    // let params = new HttpParams()
-    //   .set('provinceCode', this.provinceCode.toString())
-    //   .set('searchColumn', this.searchColumn.toString())
-    //   .set('searchValue', this.searchValue.toString())
-    //   .set('pageNo', this.pageNo.toString())
-    //   .set('pageSize', this.pageSize.toString());
-
-    // this.kabupatenKotaService
-    //   .getList(params)
-    //   .pipe(
-    //     map((result: KabuapatenKotaData) => {
-    //       this.data = result;
-    //       this.totalData = result.TotalRows;
-    //       //console.log(this.data);
-    //       this.dataSource = new MatTableDataSource(result.Data);
-    //     })
-    //   )
-    //   .subscribe();
   }
 }

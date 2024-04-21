@@ -1,41 +1,60 @@
 <h2>List Kabupaten Kota</h2>
 <div>
-  <div>
-    <mat-form-field>
-      <mat-label>Filter By</mat-label>
-      <mat-select
-        placeholder="Search Kabupaten Kota By"
-        [(value)]="searchColumn"
-      >
-        <mat-option
-          *ngFor="let search of searchColumnsList"
-          [value]="search.value"
-          (onSelectionChange)="searchByCriteria($event, search)"
+  <form class="form">
+    <div>
+      <mat-form-field>
+        <input
+          [formControl]="provinceLookup"
+          type="text"
+          placeholder="Pilih Provinsi"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let item of filteredProvinsi$ | async; let index = index"
+            [value]="item.Name"
+          >
+            {{ item.Name | titlecase }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Filter By</mat-label>
+        <mat-select
+          placeholder="Search Kabupaten Kota By"
+          [(value)]="searchColumn"
         >
-          {{ search.viewValue }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Filter Value</mat-label>
-      <input
-        matInput
-        [(ngModel)]="searchValue"
-        (input)="searchByValue(searchValue)"
-        placeholder="Ex. Aceh"
-      />
-    </mat-form-field>
-    &nbsp; &nbsp;
-    <button mat-raised-button color="primary" (click)="search($event)">
-      Search
-    </button>
-    &nbsp; &nbsp;
-    <button mat-raised-button color="primary" (click)="openAddForm()">
-      Add
-    </button>
-  </div>
-
-  <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <mat-option
+            *ngFor="let search of searchColumnsList"
+            [value]="search.value"
+            (onSelectionChange)="searchByCriteria($event, search)"
+          >
+            {{ search.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Filter Value</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchValue"
+          (input)="searchByValue(searchValue)"
+          placeholder="Ex. Aceh"
+        />
+      </mat-form-field>
+      &nbsp; &nbsp;
+      <button mat-raised-button color="primary" (click)="search($event)">
+        Search
+      </button>
+      &nbsp; &nbsp;
+      <button mat-raised-button color="primary" (click)="openAddForm()">
+        Add
+      </button>
+    </div>
+  </form>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
@@ -43,17 +62,17 @@
       <th mat-header-cell *matHeaderCellDef>Id</th>
       <td mat-cell *matCellDef="let row">{{ row.Id }}</td>
     </ng-container>
-    <ng-container matColumnDef="Code">
-      <th mat-header-cell *matHeaderCellDef>Code</th>
+    <ng-container matColumnDef="ProvinceName">
+      <th mat-header-cell *matHeaderCellDef>Province Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.ProvinceName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="KabupatenCode">
+      <th mat-header-cell *matHeaderCellDef>KabupatenCode</th>
       <td mat-cell *matCellDef="let row">{{ row.Code }}</td>
     </ng-container>
-    <ng-container matColumnDef="Name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
+    <ng-container matColumnDef="KabupatenName">
+      <th mat-header-cell *matHeaderCellDef>Kabupaten Name</th>
       <td mat-cell *matCellDef="let row">{{ row.Name }}</td>
-    </ng-container>
-    <ng-container matColumnDef="TimeZoneInfo">
-      <th mat-header-cell *matHeaderCellDef>Time Zone Info</th>
-      <td mat-cell *matCellDef="let row">{{ row.TimeZoneInfo }}</td>
     </ng-container>
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef></th>
@@ -77,5 +96,5 @@
     [pageSizeOptions]="pageSizes"
     (page)="onPaginateChange($event)"
     showFirstLastButtons
-  ></mat-paginator> -->
+  ></mat-paginator>
 </div>

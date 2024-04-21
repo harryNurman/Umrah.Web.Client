@@ -6,7 +6,7 @@ import { KabupatenKotaComponent } from './components/kabupaten-kota/kabupaten-ko
 import { KecamatanComponent } from './components/kecamatan/kecamatan.component';
 import { KelurahanComponent } from './components/kelurahan/kelurahan.component';
 import { MasterRoutingModule } from './master-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AddProvinsiComponent } from './components/provinsi/add-provinsi/add-provinsi.component';
 import { SharedModule } from '../shared/shared.module';
 import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
@@ -37,6 +37,7 @@ import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kab
     FormsModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
   ],
   exports: [],
