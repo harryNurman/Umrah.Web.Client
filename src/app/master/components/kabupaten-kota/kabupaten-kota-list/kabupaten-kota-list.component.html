@@ -3,18 +3,24 @@
   <form class="form">
     <div>
       <mat-form-field>
+        <mat-label>Pilih Provinsi</mat-label>
         <input
           [formControl]="provinceLookup"
           type="text"
-          placeholder="Pilih Provinsi"
+          placeholder="Nama Provinsi"
           aria-label="Number"
+          [(ngModel)]="selectedProvice"
           matInput
           [matAutocomplete]="auto"
         />
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-autocomplete
+          autoActiveFirstOption
+          #auto="matAutocomplete"
+          [displayWith]="displayFn"
+        >
           <mat-option
             *ngFor="let item of filteredProvinsi$ | async; let index = index"
-            [value]="item.Name"
+            [value]="item"
           >
             {{ item.Name | titlecase }}
           </mat-option>
@@ -41,7 +47,8 @@
           matInput
           [(ngModel)]="searchValue"
           (input)="searchByValue(searchValue)"
-          placeholder="Ex. Aceh"
+          name="searchValue"
+          placeholder="Ex. Tangerang"
         />
       </mat-form-field>
       &nbsp; &nbsp;

@@ -41,7 +41,7 @@ import {
 } from 'src/app/model/KabupatenKotaModel';
 import { AddKabupatenKotaComponent } from '../add-kabupaten-kota/add-kabupaten-kota.component';
 import { EditProvinsiComponent } from '../../provinsi/edit-provinsi/edit-provinsi.component';
-import { FormControl } from '@angular/forms';
+import { FormControl, UntypedFormBuilder } from '@angular/forms';
 import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
 
 @Component({
@@ -70,6 +70,7 @@ export class KabupatenKotaListComponent implements OnInit {
   pageEvent: PageEvent;
   searchColumn: string = '';
   searchValue: string = '';
+  selectedProvice: ProvinsiModel;
 
   data: KabuapatenKotaData;
   dataSource = new MatTableDataSource<KabupatenKotaModel>(this.modelList);
@@ -122,6 +123,7 @@ export class KabupatenKotaListComponent implements OnInit {
         return this.lookup(val || '');
       })
     );
+    this.initDataSource();
   }
 
   searchByValue(value: string) {
@@ -134,6 +136,11 @@ export class KabupatenKotaListComponent implements OnInit {
   }
 
   initDataSource() {
+    if (this.selectedProvice != null) {
+      console.log('provinceObject:', this.selectedProvice);
+      this.provinceCode = this.selectedProvice.Code;
+    }
+
     let params = new HttpParams()
       .set('provinceCode', this.provinceCode.toString())
       .set('searchColumn', this.searchColumn.toString())
@@ -221,5 +228,12 @@ export class KabupatenKotaListComponent implements OnInit {
     this.pageNo = page;
 
     this.initDataSource();
+  }
+
+  displayFn(provinsi: ProvinsiModel): string {
+    this.provinceCode = provinsi?.Code;
+    this.selectedProvice = provinsi;
+    console.log('Selected value ', this.provinceCode);
+    return provinsi ? provinsi.Name : '';
   }
 }
