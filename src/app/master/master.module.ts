@@ -6,7 +6,7 @@ import { KabupatenKotaComponent } from './components/kabupaten-kota/kabupaten-ko
 import { KecamatanComponent } from './components/kecamatan/kecamatan.component';
 import { KelurahanComponent } from './components/kelurahan/kelurahan.component';
 import { MasterRoutingModule } from './master-routing.module';
-import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProvinsiComponent } from './components/provinsi/add-provinsi/add-provinsi.component';
 import { SharedModule } from '../shared/shared.module';
 import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
@@ -16,6 +16,7 @@ import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-
 import { KabupatenKotaListComponent } from './components/kabupaten-kota/kabupaten-kota-list/kabupaten-kota-list.component';
 import { AddKabupatenKotaComponent } from './components/kabupaten-kota/add-kabupaten-kota/add-kabupaten-kota.component';
 import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kabupaten-kota/edit-kabupaten-kota.component';
+import { ProvinceLookupComponent } from '../shared/lookup/province-lookup/province-lookup.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kab
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    ProvinceLookupComponent,
   ],
   exports: [],
   providers: [ProvinceService],

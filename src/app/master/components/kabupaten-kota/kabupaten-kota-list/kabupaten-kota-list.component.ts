@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AlertDialogComponent } from 'src/app/shared/components/dialog/alert-dialog/alert-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
+import { FormBuilder } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
@@ -43,6 +44,7 @@ import { AddKabupatenKotaComponent } from '../add-kabupaten-kota/add-kabupaten-k
 import { EditProvinsiComponent } from '../../provinsi/edit-provinsi/edit-provinsi.component';
 import { FormControl, UntypedFormBuilder } from '@angular/forms';
 import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
+import { MatAutocomplete } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-kabupaten-kota-list',
@@ -75,6 +77,12 @@ export class KabupatenKotaListComponent implements OnInit {
   data: KabuapatenKotaData;
   dataSource = new MatTableDataSource<KabupatenKotaModel>(this.modelList);
 
+  kabupatenKotaForm = this.fb.group({
+    provinsiLookup: '',
+    searchKabupatenKotaBy: '',
+    searchValueText: '',
+  });
+
   confirmDialog: MatDialogRef<ConfirmationDialogComponent>;
   @ViewChild('paginator') paginator: MatPaginator;
   searchColumnsList: SearchColumn[] = [
@@ -83,6 +91,7 @@ export class KabupatenKotaListComponent implements OnInit {
   ];
 
   provinceLookup = new FormControl('');
+
   options = [];
   filteredProvinsi$: Observable<ProvinsiModel[]>;
 
@@ -93,7 +102,8 @@ export class KabupatenKotaListComponent implements OnInit {
     private kabupatenKotaService: KabupatenKotaService,
     private provinceService: ProvinceService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    public fb: FormBuilder
   ) {}
 
   lookup(val: string): Observable<ProvinsiModel[]> {
@@ -131,18 +141,32 @@ export class KabupatenKotaListComponent implements OnInit {
   }
 
   search(event: Event) {
-    //console.log('search');
     this.initDataSource();
   }
 
   initDataSource() {
-    if (this.selectedProvice != null) {
-      console.log('provinceObject:', this.selectedProvice);
+    console.log(this.kabupatenKotaForm.value);
+    var selectedProvice = this.kabupatenKotaForm.value.provinsiLookup;
+    console.log(selectedProvice);
+
+    if (this.kabupatenKotaForm.value.provinsiLookup != null) {
+      this.selectedProvice = new ProvinsiModel(
+        this.kabupatenKotaForm.value.provinsiLookup as unknown as ProvinsiModel
+      );
+    }
+
+    //this.selectedProvice.Code = this.kabupatenKotaForm.value.provinsiLookup?.Code;
+    if (selectedProvice != null || selectedProvice != undefined) {
       this.provinceCode = this.selectedProvice.Code;
+    } else {
+      this.provinceCode = '';
     }
 
     let params = new HttpParams()
-      .set('provinceCode', this.provinceCode.toString())
+      .set(
+        'provinceCode',
+        this.provinceCode == undefined ? '' : this.provinceCode.toString()
+      )
       .set('searchColumn', this.searchColumn.toString())
       .set('searchValue', this.searchValue.toString())
       .set('pageNo', this.pageNo.toString())

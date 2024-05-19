@@ -1,4 +1,10 @@
-export interface ProvinsiModel {
+export class ProvinsiModel {
+  /**
+   *
+   */
+  public constructor(init?: Partial<ProvinsiModel>) {
+    Object.assign(this, init);
+  }
   Id: number;
   Code: string;
   Name: string;
