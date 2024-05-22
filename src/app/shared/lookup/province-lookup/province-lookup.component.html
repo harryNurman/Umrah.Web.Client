@@ -2,7 +2,9 @@
   <mat-label>Province: </mat-label>
 
   <input
+    [formControl]="provinceLookup"
     matInput
+    type="text"
     aria-label="Select Province"
     placeholder="Select Province"
     [matAutocomplete]="auto"

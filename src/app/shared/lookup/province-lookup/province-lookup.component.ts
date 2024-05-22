@@ -49,9 +49,9 @@ import { HttpParams } from '@angular/common/http';
       multi: true,
     },
   ],
-})
+}) // OnDestroy,
 export class ProvinceLookupComponent
-  implements OnInit, OnDestroy, ControlValueAccessor
+  implements OnInit, ControlValueAccessor, OnDestroy
 {
   @Output() selected = new EventEmitter<ProvinsiModel>();
   control = new FormControl<ProvinsiModel | undefined>(undefined);
@@ -75,6 +75,7 @@ export class ProvinceLookupComponent
   private onTouchedCallback: () => void = () => {};
 
   onOptionSelected(option: ProvinsiModel) {
+    console.log('option selected');
     this.onChangeCallback(option);
   }
 
