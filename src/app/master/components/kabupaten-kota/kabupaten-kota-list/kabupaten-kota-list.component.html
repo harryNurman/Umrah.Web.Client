@@ -3,30 +3,6 @@
   <form class="form" [formGroup]="kabupatenKotaForm">
     <div>
       <app-province-lookup formControlName="provinsiLookup" />
-      <!-- <mat-form-field>
-        <mat-label>Pilih Provinsi</mat-label>
-        <input
-          [formControl]="provinceLookup"
-          type="text"
-          placeholder="Nama Provinsi"
-          aria-label="Number"
-          [(ngModel)]="selectedProvice"
-          matInput
-          [matAutocomplete]="auto"
-        />
-        <mat-autocomplete
-          autoActiveFirstOption
-          #auto="matAutocomplete"
-          [displayWith]="displayFn"
-        >
-          <mat-option
-            *ngFor="let item of filteredProvinsi$ | async; let index = index"
-            [value]="item"
-          >
-            {{ item.Name | titlecase }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field> -->
       <mat-form-field>
         <mat-label>Filter By</mat-label>
         <mat-select
@@ -76,7 +52,7 @@
       <td mat-cell *matCellDef="let row">{{ row.ProvinceName }}</td>
     </ng-container>
     <ng-container matColumnDef="KabupatenCode">
-      <th mat-header-cell *matHeaderCellDef>KabupatenCode</th>
+      <th mat-header-cell *matHeaderCellDef>Kabupaten Code</th>
       <td mat-cell *matCellDef="let row">{{ row.Code }}</td>
     </ng-container>
     <ng-container matColumnDef="KabupatenName">

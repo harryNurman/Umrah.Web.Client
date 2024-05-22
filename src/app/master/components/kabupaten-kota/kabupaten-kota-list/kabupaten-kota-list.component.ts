@@ -40,11 +40,10 @@ import {
   KabuapatenKotaData,
   KabupatenKotaModel,
 } from 'src/app/model/KabupatenKotaModel';
-import { AddKabupatenKotaComponent } from '../add-kabupaten-kota/add-kabupaten-kota.component';
 import { EditProvinsiComponent } from '../../provinsi/edit-provinsi/edit-provinsi.component';
-import { FormControl, UntypedFormBuilder } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
-import { MatAutocomplete } from '@angular/material/autocomplete';
+import { KabupatenKotaAddEditComponent } from '../kabupaten-kota-add-edit/kabupaten-kota-add-edit.component';
 
 @Component({
   selector: 'app-kabupaten-kota-list',
@@ -213,7 +212,7 @@ export class KabupatenKotaListComponent implements OnInit {
 
   openAddForm() {
     //console.log(data);
-    const dialogRef = this.dialog.open(AddKabupatenKotaComponent);
+    const dialogRef = this.dialog.open(KabupatenKotaAddEditComponent);
 
     dialogRef.afterClosed().subscribe({
       next: (val) => {

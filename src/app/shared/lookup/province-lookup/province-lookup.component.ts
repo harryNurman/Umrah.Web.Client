@@ -75,7 +75,6 @@ export class ProvinceLookupComponent
   private onTouchedCallback: () => void = () => {};
 
   onOptionSelected(option: ProvinsiModel) {
-    console.log('option selected');
     this.onChangeCallback(option);
   }
 

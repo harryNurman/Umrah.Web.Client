@@ -14,9 +14,8 @@ import { MaterialModule } from '../shared/material.module';
 import { ProvinceService } from '../service/province.service';
 import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-provinsi.component';
 import { KabupatenKotaListComponent } from './components/kabupaten-kota/kabupaten-kota-list/kabupaten-kota-list.component';
-import { AddKabupatenKotaComponent } from './components/kabupaten-kota/add-kabupaten-kota/add-kabupaten-kota.component';
-import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kabupaten-kota/edit-kabupaten-kota.component';
 import { ProvinceLookupComponent } from '../shared/lookup/province-lookup/province-lookup.component';
+import { KabupatenKotaAddEditComponent } from './components/kabupaten-kota/kabupaten-kota-add-edit/kabupaten-kota-add-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +28,7 @@ import { ProvinceLookupComponent } from '../shared/lookup/province-lookup/provin
     AllProvinsiComponent,
     EditProvinsiComponent,
     KabupatenKotaListComponent,
-    AddKabupatenKotaComponent,
-    EditKabupatenKotaComponent,
+    KabupatenKotaAddEditComponent,
   ],
   imports: [
     RouterModule,
