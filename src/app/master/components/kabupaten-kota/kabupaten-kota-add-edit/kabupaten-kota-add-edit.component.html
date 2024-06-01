@@ -2,7 +2,11 @@
 <form class="form" [formGroup]="kabupatenKotaAddEditForm" (ngSubmit)="save()">
   <div mat-dialog-content>
     <div class="row">
-      <app-province-lookup formControlName="provinsiLookup" />
+      <app-province-lookup
+        [selectedProvince]="provinsi"
+        [isProvinceLookupReadOnly]="isReadOnly"
+        formControlName="provinsiLookup"
+      />
       <mat-form-field appearance="fill">
         <mat-label>Kabupaten Code</mat-label>
         <input

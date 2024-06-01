@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output,
@@ -54,12 +55,39 @@ export class ProvinceLookupComponent
   implements OnInit, ControlValueAccessor, OnDestroy
 {
   @Output() selected = new EventEmitter<ProvinsiModel>();
-  control = new FormControl<ProvinsiModel | undefined>(undefined);
+  provinceLookup = new FormControl<ProvinsiModel | undefined>(undefined);
   items: ProvinsiModel[] = [];
   filteredItems: Observable<ProvinsiModel[]>;
-  provinceLookup = new FormControl('');
+  //provinceLookup = new FormControl('');
   searchColumn: string = '';
   private ngUnsubscribe = new Subject<void>();
+  private _selectedProvince: ProvinsiModel;
+  private _readOnly: boolean;
+  private _disabled: boolean;
+  //set accessor including call the onchange callback
+  @Input()
+  public set selectedProvince(v: ProvinsiModel) {
+    if (v !== this._selectedProvince) {
+      this._selectedProvince = v;
+      console.log('Province Selected', v);
+      this.onChangeCallback(v);
+    }
+  }
+  public get selectedProvince(): ProvinsiModel {
+    return this._selectedProvince;
+  }
+
+  @Input()
+  public set isProvinceLookupReadOnly(v: boolean) {
+    if (v !== this._readOnly) {
+      this._readOnly = v;
+    }
+  }
+
+  public get isProvinceLookupReadOnly(): boolean {
+    console.log('Is ReadOnly', this._readOnly);
+    return this._readOnly;
+  }
 
   /**
    *
@@ -75,11 +103,13 @@ export class ProvinceLookupComponent
   private onTouchedCallback: () => void = () => {};
 
   onOptionSelected(option: ProvinsiModel) {
+    //console.log('selected province', option);
     this.onChangeCallback(option);
   }
 
   writeValue(item: ProvinsiModel | undefined): void {
-    this.control.setValue(item);
+    console.log('onWriteValue', item);
+    this.provinceLookup.setValue(item);
   }
 
   registerOnChange(fn: any): void {
@@ -89,7 +119,7 @@ export class ProvinceLookupComponent
     this.onTouchedCallback = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    //this.disabled = isDisabled;
+    this._disabled = isDisabled;
   }
 
   ngOnInit(): void {
@@ -103,7 +133,8 @@ export class ProvinceLookupComponent
     );
   }
 
-  lookup(val: string): Observable<ProvinsiModel[]> {
+  lookup(val: any): Observable<ProvinsiModel[]> {
+    console.log(val);
     var pageNo = 1;
     var pageSize = 20;
     let params = new HttpParams()

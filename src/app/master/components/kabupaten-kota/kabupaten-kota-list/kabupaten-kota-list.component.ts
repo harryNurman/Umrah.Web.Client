@@ -230,7 +230,6 @@ export class KabupatenKotaListComponent implements OnInit {
   }
 
   openEditForm(data: any) {
-    //console.log(data);
     const dialogRef = this.dialog.open(KabupatenKotaAddEditComponent, {
       data,
     });
