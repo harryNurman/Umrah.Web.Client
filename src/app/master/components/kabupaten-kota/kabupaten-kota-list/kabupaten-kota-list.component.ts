@@ -212,7 +212,12 @@ export class KabupatenKotaListComponent implements OnInit {
 
   openAddForm() {
     //console.log(data);
-    const dialogRef = this.dialog.open(KabupatenKotaAddEditComponent);
+
+    const dialogRef = this.dialog.open(KabupatenKotaAddEditComponent, {
+      minWidth: '300px',
+      ariaModal: true,
+      disableClose: true,
+    });
 
     dialogRef.afterClosed().subscribe({
       next: (val) => {
@@ -226,7 +231,7 @@ export class KabupatenKotaListComponent implements OnInit {
 
   openEditForm(data: any) {
     //console.log(data);
-    const dialogRef = this.dialog.open(EditProvinsiComponent, {
+    const dialogRef = this.dialog.open(KabupatenKotaAddEditComponent, {
       data,
     });
 

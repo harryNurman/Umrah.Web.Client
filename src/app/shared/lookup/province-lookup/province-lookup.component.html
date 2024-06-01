@@ -9,9 +9,7 @@
     placeholder="Select Province"
     [matAutocomplete]="auto"
   />
-
   <mat-autocomplete
-    autoActiveFirstOption
     #auto="matAutocomplete"
     [displayWith]="display"
     (optionSelected)="onOptionSelected($event.option.value)"
