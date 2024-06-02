@@ -69,7 +69,7 @@ export class ProvinceLookupComponent
   public set selectedProvince(v: ProvinsiModel) {
     if (v !== this._selectedProvince) {
       this._selectedProvince = v;
-      console.log('Province Selected from Parent', v);
+      //console.log('Province Selected from Parent', v);
       this.onChangeCallback(v);
     }
   }
@@ -135,7 +135,7 @@ export class ProvinceLookupComponent
   }
 
   lookup(val: any): Observable<ProvinsiModel[]> {
-    console.log(val);
+    //console.log(val);
     var pageNo = 1;
     var pageSize = 20;
     let params = new HttpParams()

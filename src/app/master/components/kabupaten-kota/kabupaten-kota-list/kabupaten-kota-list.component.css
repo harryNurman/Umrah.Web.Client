@@ -1,4 +1,29 @@
-.form {
+.list-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+}
+
+.list-container mat-form-field {
+  width: 220px;
+}
+
+.list-container form {
+  margin-bottom: 20px;
+}
+
+.list-container form > * {
+  margin: 12px 0;
+}
+
+.list-container .mat-radio-button {
+  margin: 0 12px;
+}
+
+.list-form-fields {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* .form {
   min-width: 150px;
   max-width: 500px;
   width: 100%;
@@ -6,4 +31,4 @@
 
 .full-width {
   width: 100%;
-}
+} */

@@ -12,6 +12,7 @@ export class KabupatenKotaAddEditComponent implements OnInit {
   provinceLookup = new FormControl('');
   provinsi: ProvinsiModel;
   isReadOnly: boolean;
+  title: string;
   /**
    *
    */
@@ -21,8 +22,9 @@ export class KabupatenKotaAddEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
   ngOnInit(): void {
-    console.log(this.data);
+    //console.log(this.data);
     if (this.data) {
+      this.title = 'Update';
       this.provinsi = {
         Id: 0,
         Code: this.data.ProvinceCode,
@@ -31,13 +33,15 @@ export class KabupatenKotaAddEditComponent implements OnInit {
         CreatedAt: new Date(2000, 1, 1),
       };
       this.isReadOnly = true;
-      console.log('provinsi edit:', this.provinsi);
+      //console.log('provinsi edit:', this.provinsi);
 
       this.kabupatenKotaAddEditForm.setValue({
         provinsiLookup: this.provinsi,
         code: this.data.Code,
         name: this.data.Name,
       });
+    } else {
+      this.title = 'Add';
     }
   }
 
@@ -48,10 +52,10 @@ export class KabupatenKotaAddEditComponent implements OnInit {
   });
 
   save() {
-    console.log('save');
     if (this.kabupatenKotaAddEditForm.valid) {
       if (this.data) {
         //Update
+        console.log('Update', this.kabupatenKotaAddEditForm.value);
       } else {
         //New
         console.log('Save New');

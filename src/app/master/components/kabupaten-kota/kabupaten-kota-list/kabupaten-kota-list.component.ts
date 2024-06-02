@@ -144,9 +144,9 @@ export class KabupatenKotaListComponent implements OnInit {
   }
 
   initDataSource() {
-    console.log(this.kabupatenKotaForm.value);
+    //console.log(this.kabupatenKotaForm.value);
     var selectedProvice = this.kabupatenKotaForm.value.provinsiLookup;
-    console.log(selectedProvice);
+    //console.log(selectedProvice);
 
     if (this.kabupatenKotaForm.value.provinsiLookup != null) {
       this.selectedProvice = new ProvinsiModel(
@@ -166,8 +166,14 @@ export class KabupatenKotaListComponent implements OnInit {
         'provinceCode',
         this.provinceCode == undefined ? '' : this.provinceCode.toString()
       )
-      .set('searchColumn', this.searchColumn.toString())
-      .set('searchValue', this.searchValue.toString())
+      .set(
+        'searchColumn',
+        this.kabupatenKotaForm.value.searchKabupatenKotaBy as string
+      )
+      .set(
+        'searchValue',
+        this.kabupatenKotaForm.value.searchValueText as string
+      )
       .set('pageNo', this.pageNo.toString())
       .set('pageSize', this.pageSize.toString());
 
@@ -181,7 +187,7 @@ export class KabupatenKotaListComponent implements OnInit {
           this.totalData = result.TotalRows;
           this.pageSize = result.PageSize;
           this.dataSource = new MatTableDataSource(result.Data);
-          console.log(this.dataSource);
+          //console.log(this.dataSource);
         })
       )
       .subscribe();
@@ -260,7 +266,7 @@ export class KabupatenKotaListComponent implements OnInit {
   displayFn(provinsi: ProvinsiModel): string {
     this.provinceCode = provinsi?.Code;
     this.selectedProvice = provinsi;
-    console.log('Selected value ', this.provinceCode);
+    //console.log('Selected value ', this.provinceCode);
     return provinsi ? provinsi.Name : '';
   }
 }
