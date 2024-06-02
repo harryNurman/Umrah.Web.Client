@@ -62,14 +62,14 @@ export class ProvinceLookupComponent
   searchColumn: string = '';
   private ngUnsubscribe = new Subject<void>();
   private _selectedProvince: ProvinsiModel;
-  private _readOnly: boolean;
+  private _readOnly: boolean = false;
   private _disabled: boolean;
   //set accessor including call the onchange callback
   @Input()
   public set selectedProvince(v: ProvinsiModel) {
     if (v !== this._selectedProvince) {
       this._selectedProvince = v;
-      console.log('Province Selected', v);
+      console.log('Province Selected from Parent', v);
       this.onChangeCallback(v);
     }
   }
@@ -85,7 +85,7 @@ export class ProvinceLookupComponent
   }
 
   public get isProvinceLookupReadOnly(): boolean {
-    console.log('Is ReadOnly', this._readOnly);
+    //console.log('Is ReadOnly', this._readOnly);
     return this._readOnly;
   }
 
@@ -103,23 +103,24 @@ export class ProvinceLookupComponent
   private onTouchedCallback: () => void = () => {};
 
   onOptionSelected(option: ProvinsiModel) {
-    //console.log('selected province', option);
+    // console.log('on Option Selected', option);
     this.onChangeCallback(option);
   }
 
   writeValue(item: ProvinsiModel | undefined): void {
-    console.log('onWriteValue', item);
     this.provinceLookup.setValue(item);
   }
 
   registerOnChange(fn: any): void {
     this.onChangeCallback = fn;
   }
+
   registerOnTouched(fn: any): void {
     this.onTouchedCallback = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this._disabled = isDisabled;
+    // console.log('isDisabled', isDisabled);
+    // this._disabled = isDisabled;
   }
 
   ngOnInit(): void {
