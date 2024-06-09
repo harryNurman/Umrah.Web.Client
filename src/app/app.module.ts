@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppConfigurationService } from 'src/app/service/app-configuration.service';
 import { ErrorComponent } from './error/error.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,28 +18,22 @@ const appConfig = (config: AppConfigurationService) => {
   };
 };
 
-@NgModule({
-  declarations: [AppComponent, ErrorComponent, MenuBarComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    MasterModule,
-    PublicModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    MaterialModule,
-  ],
-  exports: [],
-  providers: [
-    AppConfigurationService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appConfig,
-      multi: true,
-      deps: [AppConfigurationService],
-    },
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent, ErrorComponent, MenuBarComponent],
+    exports: [],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        MasterModule,
+        PublicModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        MaterialModule], providers: [
+        AppConfigurationService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: appConfig,
+            multi: true,
+            deps: [AppConfigurationService],
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}

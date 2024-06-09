@@ -10,8 +10,7 @@ import { AddProvinsiComponent } from './components/provinsi/add-provinsi/add-pro
 import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
 import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-provinsi.component';
 import { KabupatenKotaListComponent } from './components/kabupaten-kota/kabupaten-kota-list/kabupaten-kota-list.component';
-import { AddKabupatenKotaComponent } from './components/kabupaten-kota/add-kabupaten-kota/add-kabupaten-kota.component';
-import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kabupaten-kota/edit-kabupaten-kota.component';
+import { KabupatenKotaAddEditComponent } from './components/kabupaten-kota/kabupaten-kota-add-edit/kabupaten-kota-add-edit.component';
 
 const appRoutes: Routes = [
   {
@@ -32,8 +31,8 @@ const appRoutes: Routes = [
         component: KabupatenKotaComponent,
         children: [
           { path: '', component: KabupatenKotaListComponent },
-          { path: 'new', component: AddKabupatenKotaComponent },
-          { path: 'edit/:id', component: EditKabupatenKotaComponent },
+          { path: 'new', component: KabupatenKotaAddEditComponent },
+          { path: 'edit/:id', component: KabupatenKotaAddEditComponent },
         ],
       },
       { path: 'kecamatan', component: KecamatanComponent },

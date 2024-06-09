@@ -6,7 +6,7 @@ import { KabupatenKotaComponent } from './components/kabupaten-kota/kabupaten-ko
 import { KecamatanComponent } from './components/kecamatan/kecamatan.component';
 import { KelurahanComponent } from './components/kelurahan/kelurahan.component';
 import { MasterRoutingModule } from './master-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProvinsiComponent } from './components/provinsi/add-provinsi/add-provinsi.component';
 import { SharedModule } from '../shared/shared.module';
 import { AllProvinsiComponent } from './components/provinsi/all-provinsi/all-provinsi.component';
@@ -14,8 +14,8 @@ import { MaterialModule } from '../shared/material.module';
 import { ProvinceService } from '../service/province.service';
 import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-provinsi.component';
 import { KabupatenKotaListComponent } from './components/kabupaten-kota/kabupaten-kota-list/kabupaten-kota-list.component';
-import { AddKabupatenKotaComponent } from './components/kabupaten-kota/add-kabupaten-kota/add-kabupaten-kota.component';
-import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kabupaten-kota/edit-kabupaten-kota.component';
+import { ProvinceLookupComponent } from '../shared/lookup/province-lookup/province-lookup.component';
+import { KabupatenKotaAddEditComponent } from './components/kabupaten-kota/kabupaten-kota-add-edit/kabupaten-kota-add-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +28,7 @@ import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kab
     AllProvinsiComponent,
     EditProvinsiComponent,
     KabupatenKotaListComponent,
-    AddKabupatenKotaComponent,
-    EditKabupatenKotaComponent,
+    KabupatenKotaAddEditComponent,
   ],
   imports: [
     RouterModule,
@@ -37,7 +36,9 @@ import { EditKabupatenKotaComponent } from './components/kabupaten-kota/edit-kab
     FormsModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
+    ProvinceLookupComponent,
   ],
   exports: [],
   providers: [ProvinceService],

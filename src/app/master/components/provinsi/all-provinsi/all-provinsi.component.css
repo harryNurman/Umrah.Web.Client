@@ -1,4 +1,42 @@
-table {
+.mat-table__wrapper .mat-table {
+  min-width: auto !important;
+  width: 100% !important;
+}
+
+.mat-header-row {
+  width: 100%;
+}
+
+.mat-row {
+  width: 100%;
+}
+
+.mat-column-Id {
+  flex: 0 0 25% !important;
+  min-width: 104px !important;
+}
+
+.mat-column-Code {
+  flex: 0 0 25% !important;
+  min-width: 104px !important;
+}
+
+.mat-column-Name {
+  flex: 0 0 25% !important;
+  min-width: 300px !important;
+}
+
+.mat-column-TimeZoneInfo {
+  flex: 0 0 25% !important;
+  min-width: 300px !important;
+}
+
+.mat-column-Action {
+  flex: 0 0 25% !important;
+  min-width: 104px !important;
+}
+
+/* table {
   width: 100%;
 }
 
@@ -16,4 +54,4 @@ table {
 .Action-icon:hover {
   opacity: 0.8;
   cursor: pointer;
-}
+} */

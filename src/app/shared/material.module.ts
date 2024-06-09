@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -27,6 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatAutocompleteModule,
+    MatInputModule,
   ],
 })
 export class MaterialModule {}

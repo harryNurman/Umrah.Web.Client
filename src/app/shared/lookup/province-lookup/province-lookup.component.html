@@ -1,0 +1,27 @@
+<mat-form-field>
+  <mat-label>Province: </mat-label>
+
+  <input
+    [formControl]="provinceLookup"
+    matInput
+    type="text"
+    aria-label="Select Province"
+    placeholder="Select Province"
+    [matAutocomplete]="auto"
+    #trigger="matAutocompleteTrigger"
+    [readonly]="isProvinceLookupReadOnly"
+    (blur)="emitEvent()"
+  />
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="display"
+    (optionSelected)="onOptionSelected($event.option.value)"
+  >
+    <mat-option
+      *ngFor="let item of filteredItems | async; let index = index"
+      [value]="item"
+    >
+      {{ item.Name }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

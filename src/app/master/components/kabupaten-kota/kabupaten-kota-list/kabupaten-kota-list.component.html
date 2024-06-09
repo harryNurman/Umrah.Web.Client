@@ -1,1 +1,88 @@
-<p>kabupaten-kota-list works!</p>
+<H2>Kabupaten Kota</H2>
+<div class="list-container">
+  <form class="form" [formGroup]="kabupatenKotaForm">
+    <div class="list-form-fields">
+      <app-province-lookup
+        (objectSelected)="provinceSelected($event)"
+        formControlName="provinceLookup"
+      />
+      <mat-form-field>
+        <mat-label>Filter By</mat-label>
+        <mat-select
+          formControlName="searchKabupatenKotaBy"
+          placeholder="Search Kabupaten Kota By"
+          [(value)]="searchColumn"
+        >
+          <mat-option
+            *ngFor="let search of searchColumnsList"
+            [value]="search.value"
+            (onSelectionChange)="searchByCriteria($event, search)"
+          >
+            {{ search.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Filter Value</mat-label>
+        <input
+          matInput
+          formControlName="searchValueText"
+          (input)="searchByValue(searchValue)"
+          name="searchValue"
+          placeholder="Ex. Tangerang"
+        />
+      </mat-form-field>
+      &nbsp; &nbsp;
+      <button mat-raised-button color="primary" (click)="search($event)">
+        Search
+      </button>
+      &nbsp; &nbsp;
+      <button mat-raised-button color="primary" (click)="openAddForm()">
+        Add
+      </button>
+    </div>
+  </form>
+  <table mat-table [dataSource]="dataSource">
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let row">{{ row.Id }}</td>
+    </ng-container>
+    <ng-container matColumnDef="ProvinceName">
+      <th mat-header-cell *matHeaderCellDef>Province Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.ProvinceName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="KabupatenCode">
+      <th mat-header-cell *matHeaderCellDef>Kabupaten Code</th>
+      <td mat-cell *matCellDef="let row">{{ row.Code }}</td>
+    </ng-container>
+    <ng-container matColumnDef="KabupatenName">
+      <th mat-header-cell *matHeaderCellDef>Kabupaten Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.Name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-raised-button color="primary" (click)="openEditForm(row)">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        &nbsp;
+        <button mat-raised-button color="primary" (click)="deleteRecord(row)">
+          <mat-icon color="warn">delete</mat-icon>
+          Delete
+        </button>
+      </td>
+    </ng-container>
+  </table>
+  <mat-paginator
+    #paginator
+    [length]="totalData"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizes"
+    (page)="onPaginateChange($event)"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

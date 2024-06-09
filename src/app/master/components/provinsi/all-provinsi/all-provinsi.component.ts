@@ -15,7 +15,7 @@ import {
   MatDialogRef,
   MatDialogConfig,
 } from '@angular/material/dialog';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, filter, map, startWith, switchMap, tap } from 'rxjs';
 import { ProvinceService } from 'src/app/service/province.service';
@@ -61,13 +61,14 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
   ) {}
 
   initDataSource() {
+    let params = new HttpParams()
+      .set('searchColumn', this.searchColumn.toString())
+      .set('searchValue', this.searchValue.toString())
+      .set('pageNo', this.pageNo.toString())
+      .set('pageSize', this.pageSize.toString());
+
     this.provinceService
-      .getListTable(
-        this.searchColumn,
-        this.searchValue,
-        this.pageNo,
-        this.pageSize
-      )
+      .getList(params)
       .pipe(
         //tap((provinces) => console.log(provinces)),
         map((provinceData: ProvinceData) => {
@@ -88,8 +89,16 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
     this.pageSize = pageSize;
     page = page + 1;
 
+    let params = new HttpParams()
+      .set('searchColumn', this.searchColumn.toString())
+      .set('searchValue', this.searchValue.toString())
+      .set('pageNo', page.toString())
+      .set('pageSize', this.pageSize.toString());
+
+    console.log(params);
+
     this.provinceService
-      .getListTable(this.searchColumn, this.searchValue, page, pageSize)
+      .getList(params)
       .pipe(
         map((provinceResult: ProvinceData) => {
           this.provinceData = provinceResult;
@@ -209,7 +218,7 @@ export class AllProvinsiComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe({
       next: (val) => {
-        console.log(val);
+        //console.log(val);
         if (val) {
           this.initDataSource();
         }

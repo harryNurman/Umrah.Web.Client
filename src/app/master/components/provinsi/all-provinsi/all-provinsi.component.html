@@ -1,8 +1,4 @@
-<h2>Semua Provinsi</h2>
-<button mat-raised-button color="primary" (click)="openAddForm()">
-  Tambah Provinsi
-</button>
-<br /><br />
+<h2>Provinsi</h2>
 <div>
   <!--<div *ngIf="loading; else content">
      <div class="spinner__loading">
@@ -17,7 +13,7 @@
     </div> 
   </div>-->
   <!-- <ng-template #content> -->
-  <div class="example-container">
+  <div>
     <mat-form-field>
       <mat-label>Filter By</mat-label>
       <mat-select placeholder="Search Province By" [(value)]="searchColumn">
@@ -42,6 +38,10 @@
     &nbsp; &nbsp;
     <button mat-raised-button color="primary" (click)="searchProvince($event)">
       Search
+    </button>
+    &nbsp; &nbsp;
+    <button mat-raised-button color="primary" (click)="openAddForm()">
+      Tambah Provinsi
     </button>
   </div>
 
