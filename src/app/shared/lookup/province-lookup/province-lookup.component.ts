@@ -160,6 +160,7 @@ export class ProvinceLookupComponent
 
   lookup(val: any): Observable<ProvinsiModel[]> {
     //debugger;
+    //console.log(val);
     var pageNo = 1;
     var pageSize = 20;
     let params = new HttpParams()

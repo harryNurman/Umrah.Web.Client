@@ -10,10 +10,9 @@
     [matAutocomplete]="auto"
     #trigger="matAutocompleteTrigger"
     [readonly]="isProvinceLookupReadOnly"
-    (change)="emitEvent()"
+    (blur)="emitEvent()"
   />
   <mat-autocomplete
-    requireSelection
     #auto="matAutocomplete"
     [displayWith]="display"
     (optionSelected)="onOptionSelected($event.option.value)"
