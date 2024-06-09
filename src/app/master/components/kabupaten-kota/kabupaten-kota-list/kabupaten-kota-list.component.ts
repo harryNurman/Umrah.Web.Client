@@ -15,7 +15,11 @@ import {
   MatDialogRef,
   MatDialogConfig,
 } from '@angular/material/dialog';
-import { HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpParams,
+  HttpResponse,
+} from '@angular/common/http';
 import { Router } from '@angular/router';
 import {
   Observable,
@@ -54,6 +58,7 @@ export class KabupatenKotaListComponent implements OnInit {
   pageSize: number = 10;
   modelList: KabupatenKotaModel[] = [];
   // provincesTable!: ProvinceData;
+  yourItemsArray: string[] = ['Test1', 'Test2', 'Test3', 'Test4', 'Test5'];
   displayedColumns: string[] = [
     'Id',
     'ProvinceName',
@@ -67,13 +72,13 @@ export class KabupatenKotaListComponent implements OnInit {
   pageEvent: PageEvent;
   searchColumn: string = '';
   searchValue: string = '';
-  selectedProvice: ProvinsiModel;
+  selectedProvince: ProvinsiModel;
 
   data: KabuapatenKotaData;
   dataSource = new MatTableDataSource<KabupatenKotaModel>(this.modelList);
 
   kabupatenKotaForm = this.fb.group({
-    provinsiLookup: '',
+    provinceLookup: '',
     searchKabupatenKotaBy: '',
     searchValueText: '',
   });
@@ -84,12 +89,10 @@ export class KabupatenKotaListComponent implements OnInit {
     { value: 'Name', viewValue: 'Name' },
     { value: 'Code', viewValue: 'Code' },
   ];
-
   provinceLookup = new FormControl('');
-
   options = [];
   filteredProvinsi$: Observable<ProvinsiModel[]>;
-
+  selectedProviceData: any;
   /**
    *
    */
@@ -120,6 +123,10 @@ export class KabupatenKotaListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.provinceLookup.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // });
+
     this.filteredProvinsi$ = this.provinceLookup.valueChanges.pipe(
       startWith(''),
       debounceTime(400),
@@ -140,28 +147,14 @@ export class KabupatenKotaListComponent implements OnInit {
   }
 
   initDataSource() {
-    //console.log(this.kabupatenKotaForm.value);
-    var selectedProvice = this.kabupatenKotaForm.value.provinsiLookup;
-    //console.log(selectedProvice);
-
-    if (this.kabupatenKotaForm.value.provinsiLookup != null) {
-      this.selectedProvice = new ProvinsiModel(
-        this.kabupatenKotaForm.value.provinsiLookup as unknown as ProvinsiModel
-      );
-    }
-
-    //this.selectedProvice.Code = this.kabupatenKotaForm.value.provinsiLookup?.Code;
-    if (selectedProvice != null || selectedProvice != undefined) {
-      this.provinceCode = this.selectedProvice.Code;
+    if (this.selectedProvince != null || this.selectedProvince != undefined) {
+      this.provinceCode = this.selectedProvince.Code;
     } else {
       this.provinceCode = '';
     }
 
     let params = new HttpParams()
-      .set(
-        'provinceCode',
-        this.provinceCode == undefined ? '' : this.provinceCode.toString()
-      )
+      .set('provinceCode', this.provinceCode)
       .set(
         'searchColumn',
         this.kabupatenKotaForm.value.searchKabupatenKotaBy as string
@@ -261,8 +254,15 @@ export class KabupatenKotaListComponent implements OnInit {
 
   displayFn(provinsi: ProvinsiModel): string {
     this.provinceCode = provinsi?.Code;
-    this.selectedProvice = provinsi;
+    this.selectedProvince = provinsi;
     //console.log('Selected value ', this.provinceCode);
     return provinsi ? provinsi.Name : '';
+  }
+
+  provinceSelected(data: any) {
+    this.selectedProviceData = data;
+    this.selectedProvince = data;
+
+    //console.log('provinceSelected', data);
   }
 }

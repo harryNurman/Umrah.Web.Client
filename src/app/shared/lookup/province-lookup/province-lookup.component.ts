@@ -23,7 +23,11 @@ import {
 } from 'rxjs/operators';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {
+  MatAutocomplete,
+  MatAutocompleteModule,
+  MatAutocompleteTrigger,
+} from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { ProvinceService } from 'src/app/service/province.service';
 import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
@@ -54,16 +58,14 @@ import { HttpParams } from '@angular/common/http';
 export class ProvinceLookupComponent
   implements OnInit, ControlValueAccessor, OnDestroy
 {
-  @Output() selected = new EventEmitter<ProvinsiModel>();
   provinceLookup = new FormControl<ProvinsiModel | undefined>(undefined);
   items: ProvinsiModel[] = [];
   filteredItems: Observable<ProvinsiModel[]>;
-  //provinceLookup = new FormControl('');
   searchColumn: string = '';
   private ngUnsubscribe = new Subject<void>();
   private _selectedProvince: ProvinsiModel;
   private _readOnly: boolean = false;
-  private _disabled: boolean;
+
   //set accessor including call the onchange callback
   @Input()
   public set selectedProvince(v: ProvinsiModel) {
@@ -84,6 +86,8 @@ export class ProvinceLookupComponent
     }
   }
 
+  @Output() objectSelected = new EventEmitter<any>();
+
   public get isProvinceLookupReadOnly(): boolean {
     //console.log('Is ReadOnly', this._readOnly);
     return this._readOnly;
@@ -99,15 +103,19 @@ export class ProvinceLookupComponent
     this.ngUnsubscribe.complete();
   }
 
-  private onChangeCallback: (_: ProvinsiModel | undefined) => void = () => {};
+  private onChangeCallback: (_: ProvinsiModel | undefined) => void = () => {
+    //console.log('OnChange');
+  };
   private onTouchedCallback: () => void = () => {};
 
   onOptionSelected(option: ProvinsiModel) {
     // console.log('on Option Selected', option);
     this.onChangeCallback(option);
+    this.writeValue(option);
   }
 
   writeValue(item: ProvinsiModel | undefined): void {
+    //console.log(item);
     this.provinceLookup.setValue(item);
   }
 
@@ -124,6 +132,22 @@ export class ProvinceLookupComponent
   }
 
   ngOnInit(): void {
+    this.provinceLookup.valueChanges.subscribe((value) => {
+      var searchVal: any;
+      searchVal = value;
+
+      if (searchVal == '') {
+        //console.log('undefined');
+        this.clearSelection();
+        //console.log('Province Lookup now', this.provinceLookup.value);
+        this.emitEvent();
+      }
+      {
+        //console.log('Province Lookup object', this.provinceLookup.value);
+        this.emitEvent();
+      }
+    });
+
     this.filteredItems = this.provinceLookup.valueChanges.pipe(
       startWith(''),
       debounceTime(400),
@@ -135,7 +159,7 @@ export class ProvinceLookupComponent
   }
 
   lookup(val: any): Observable<ProvinsiModel[]> {
-    //console.log(val);
+    //debugger;
     var pageNo = 1;
     var pageSize = 20;
     let params = new HttpParams()
@@ -156,4 +180,22 @@ export class ProvinceLookupComponent
   display(item: ProvinsiModel): string {
     return item ? item.Name : '';
   }
+
+  clearSelection() {
+    this.provinceLookup.setValue(null); // or this.myControl.setValue('');
+  }
+
+  emitEvent() {
+    this.objectSelected.emit(this.provinceLookup.value);
+  }
+
+  // resetAutoInput(trigger: MatAutocompleteTrigger, auto: MatAutocomplete) {
+  //   setTimeout((_) => {
+  //     auto.options.forEach((item) => {
+  //       item.deselect();
+  //     });
+  //     this.provinceLookup.reset(null);
+  //     trigger.openPanel();
+  //   }, 100);
+  // }
 }

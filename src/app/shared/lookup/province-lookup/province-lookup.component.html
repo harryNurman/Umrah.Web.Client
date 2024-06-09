@@ -8,9 +8,12 @@
     aria-label="Select Province"
     placeholder="Select Province"
     [matAutocomplete]="auto"
+    #trigger="matAutocompleteTrigger"
     [readonly]="isProvinceLookupReadOnly"
+    (change)="emitEvent()"
   />
   <mat-autocomplete
+    requireSelection
     #auto="matAutocomplete"
     [displayWith]="display"
     (optionSelected)="onOptionSelected($event.option.value)"

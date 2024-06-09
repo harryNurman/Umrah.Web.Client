@@ -2,7 +2,10 @@
 <div class="list-container">
   <form class="form" [formGroup]="kabupatenKotaForm">
     <div class="list-form-fields">
-      <app-province-lookup formControlName="provinsiLookup" />
+      <app-province-lookup
+        (objectSelected)="provinceSelected($event)"
+        formControlName="provinceLookup"
+      />
       <mat-form-field>
         <mat-label>Filter By</mat-label>
         <mat-select
