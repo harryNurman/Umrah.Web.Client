@@ -10,8 +10,10 @@ import {
 import {
   ControlValueAccessor,
   FormControl,
+  NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
+  Validator,
 } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import {
@@ -53,10 +55,15 @@ import { HttpParams } from '@angular/common/http';
       useExisting: forwardRef(() => ProvinceLookupComponent),
       multi: true,
     },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => ProvinceLookupComponent),
+      multi: true,
+    },
   ],
 }) // OnDestroy,
 export class ProvinceLookupComponent
-  implements OnInit, ControlValueAccessor, OnDestroy
+  implements OnInit, ControlValueAccessor, OnDestroy, Validator
 {
   provinceLookup = new FormControl<ProvinsiModel | undefined>(undefined);
   items: ProvinsiModel[] = [];
@@ -97,6 +104,12 @@ export class ProvinceLookupComponent
    *
    */
   constructor(private provinceService: ProvinceService) {}
+
+  // Validator function for required validation
+  validate(control: FormControl): { [key: string]: any } | null {
+    console.log('validation', control);
+    return control.value ? null : { required: true };
+  }
 
   ngOnDestroy() {
     this.ngUnsubscribe.next();
@@ -189,14 +202,4 @@ export class ProvinceLookupComponent
   emitEvent() {
     this.objectSelected.emit(this.provinceLookup.value);
   }
-
-  // resetAutoInput(trigger: MatAutocompleteTrigger, auto: MatAutocomplete) {
-  //   setTimeout((_) => {
-  //     auto.options.forEach((item) => {
-  //       item.deselect();
-  //     });
-  //     this.provinceLookup.reset(null);
-  //     trigger.openPanel();
-  //   }, 100);
-  // }
 }

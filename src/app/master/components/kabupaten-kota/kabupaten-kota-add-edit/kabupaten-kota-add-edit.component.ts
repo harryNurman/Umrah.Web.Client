@@ -1,5 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProvinsiModel } from 'src/app/model/ProvinsiModel';
 
@@ -13,6 +18,7 @@ export class KabupatenKotaAddEditComponent implements OnInit {
   provinsi: ProvinsiModel;
   isReadOnly: boolean;
   title: string;
+  kabupatenKotaAddEditForm: FormGroup;
   /**
    *
    */
@@ -20,7 +26,13 @@ export class KabupatenKotaAddEditComponent implements OnInit {
     public fb: FormBuilder,
     private _dialogRef: MatDialogRef<KabupatenKotaAddEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+    this.kabupatenKotaAddEditForm = this.fb.group({
+      provinsiLookup: ['', Validators.required],
+      code: '',
+      name: '',
+    });
+  }
   ngOnInit(): void {
     //console.log(this.data);
     if (this.data) {
@@ -44,12 +56,6 @@ export class KabupatenKotaAddEditComponent implements OnInit {
       this.title = 'Add';
     }
   }
-
-  kabupatenKotaAddEditForm = this.fb.group({
-    provinsiLookup: undefined,
-    code: '',
-    name: '',
-  });
 
   save() {
     if (this.kabupatenKotaAddEditForm.valid) {
