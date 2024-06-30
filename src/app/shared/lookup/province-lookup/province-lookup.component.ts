@@ -8,6 +8,7 @@ import {
   forwardRef,
 } from '@angular/core';
 import {
+  AbstractControl,
   ControlValueAccessor,
   FormControl,
   NG_VALIDATORS,
@@ -106,7 +107,7 @@ export class ProvinceLookupComponent
   constructor(private provinceService: ProvinceService) {}
 
   // Validator function for required validation
-  validate(control: FormControl): { [key: string]: any } | null {
+  validate(control: AbstractControl): { [key: string]: any } | null {
     console.log('validation', control);
     return control.value ? null : { required: true };
   }

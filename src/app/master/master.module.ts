@@ -16,6 +16,7 @@ import { EditProvinsiComponent } from './components/provinsi/edit-provinsi/edit-
 import { KabupatenKotaListComponent } from './components/kabupaten-kota/kabupaten-kota-list/kabupaten-kota-list.component';
 import { ProvinceLookupComponent } from '../shared/lookup/province-lookup/province-lookup.component';
 import { KabupatenKotaAddEditComponent } from './components/kabupaten-kota/kabupaten-kota-add-edit/kabupaten-kota-add-edit.component';
+import { MyTelInput } from '../shared/components/phone-number/phone-number.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { KabupatenKotaAddEditComponent } from './components/kabupaten-kota/kabup
     ReactiveFormsModule,
     MaterialModule,
     ProvinceLookupComponent,
+    MyTelInput,
   ],
   exports: [],
   providers: [ProvinceService],

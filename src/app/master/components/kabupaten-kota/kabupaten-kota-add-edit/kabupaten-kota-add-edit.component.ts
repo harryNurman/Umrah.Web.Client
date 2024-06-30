@@ -28,9 +28,10 @@ export class KabupatenKotaAddEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.kabupatenKotaAddEditForm = this.fb.group({
-      provinsiLookup: ['', Validators.required],
+      provinsiLookup: [null, Validators.required],
       code: '',
       name: '',
+      // tel: new FormControl(''),
     });
   }
   ngOnInit(): void {
